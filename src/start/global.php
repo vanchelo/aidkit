@@ -8,3 +8,6 @@ View::addNamespace('admin', app_path().'/views_admin');
 //TODO: put View share to extra files
 
 View::share('title',Config::get('aidkit::config.title'));
+
+
+include 'macros.php';

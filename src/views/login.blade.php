@@ -3,17 +3,40 @@
 <head>
 	<meta charset="UTF-8">
 	<title>{{ $title }}::Login</title>
+
+	{{ HTML::style('packages/codebryo/aidkit/css/vendor/pure.min.css')}}
+	{{ HTML::style('packages/codebryo/aidkit/css/vendor/font-awesome.min.css')}}
+	{{ HTML::style('packages/codebryo/aidkit/css/vendor/animate.min.css')}}
+	{{ HTML::style('packages/codebryo/aidkit/css/style.css')}}
+
 </head>
+
 <body>
-	{{ Form::open(array('url'=>'admin/login')) }}
+	<div id="logincontainer" class="pure-g-r">
+		<div id="login" class="pure-u {{ (isset($status) ? 'animated shake' : null ) }}">
+			
+			{{ Form::open(array('url'=>'admin/login','class'=>'pure-form pure-form-stacked')) }}
 
-		{{ Form::label('username') }}
-		{{ Form::text('username') }}
+				<legend>{{ $title }}</legend>
+				
+				<fieldset>
 
-		{{ Form::label('password') }}
-		{{ Form::password('password') }}
+					{{ Form::label('username') }}
+					{{ Form::text('username') }}
 
-		{{ Form::submit('login') }}
-	{{ Form::close() }}
+					{{ Form::label('password') }}
+					{{ Form::password('password') }}
+
+					<label for="remember">
+		            	<input id="remember" type="checkbox"> Remember me
+		        	</label>
+
+		        	 <button type="submit" class="pure-button green">Sign in</button>
+					
+				</fieldset>
+
+			{{ Form::close() }}
+		</div>
+	</div>
 </body>
 </html>

@@ -10,6 +10,18 @@ class AidkitAuthController extends AidkitController {
 
 	public function postIndex()
 	{
-		return 'Login attempt';
+		if(Auth::attempt(array('username' => Input::get('username'),'password'=>Input::get('password')))) return Redirect::route('dashboard');
+
+		return View::make('aidkit::login')->with('status','failed');
+	}
+
+	public function logout()
+	{
+		
+		Auth::logout(); 
+		Session::flush();
+
+		return Redirect::to('/');
+
 	}
 }

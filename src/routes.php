@@ -7,8 +7,7 @@ Route::group(array('prefix'=>Config::get('aidkit::config.prefix')),function(){
 	//Handle login stuff
 	Route::controller('login','AidkitAuthController');
 
-	// This is the Default admin/dashboard route
-	// Route::get('dashboard',array('as'=>'dashboard','uses'=>'AidkitHomeController@showDashboard'));
+	Route::get('logout','AidkitAuthController@logout');
 
 });
 
