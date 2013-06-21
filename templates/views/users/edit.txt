@@ -1,1 +1,49 @@
-edit.txt
+<h1>Update User: {{ $user->name }}</h1>
+
+{{ Form::model($user,array('route'=>array('admin.users.update',$user->id),'method'=>'PATCH','class'=>'pure-form pure-form-stacked'))}}
+    <fieldset>
+        <legend>Details</legend>
+
+        {{ HTML::aidkitErrors($errors) }}
+
+        <div class="pure-g-r">
+            <div class="pure-u-1-2">
+                {{ Form::label('name','name',array('required'))}}
+                {{ Form::text('name') }}
+            </div>
+
+            <div class="pure-u-1-2">
+                {{ Form::label('email','email',array('required'))}}
+                {{ Form::email('email') }}
+            </div>
+
+            <div class="pure-u-1-2">
+                {{ Form::label('username','username',array('required'))}}
+                {{ Form::text('username') }}
+            </div>
+        </div>
+
+        <legend>Update Password</legend>
+
+        <div class="pure-g-r">
+             <div class="pure-u-1-2">
+                {{ Form::label('new_password','New password',array('required'))}}
+                {{ Form::text('new_password') }}
+            </div>
+        </div>
+
+        <legend>Role</legend>
+
+        <label for="role_admin" class="pure-radio">
+	        <input id="role_admin" type="radio" name="role" value="1" {{ ($user->role == 1 ? 'checked' : null) }}>
+	        Administrator
+	    </label>
+
+	    <label for="role_user" class="pure-radio">
+	        <input id="role_user" type="radio" name="role" value="2" {{ ($user->role == 2 ? 'checked' : null) }}>
+	        User
+	    </label>
+
+        <button type="submit" class="pure-button green"><i class="icon-edit"></i>Update</button>
+    </fieldset>
+{{ Form::close() }}

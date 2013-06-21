@@ -1,0 +1,45 @@
+<h1>Create a new User</h1>
+
+{{ Form::open(array('route'=>'admin.users.store','class'=>'pure-form pure-form-stacked'))}}
+    <fieldset>
+        <legend>Details</legend>
+
+        {{ HTML::aidkitErrors($errors) }}
+
+        <div class="pure-g-r">
+            <div class="pure-u-1-2">
+                {{ Form::label('name','name',array('required'))}}
+                {{ Form::text('name') }}
+            </div>
+
+            <div class="pure-u-1-2">
+                {{ Form::label('email','email',array('required'))}}
+                {{ Form::email('email') }}
+            </div>
+
+            <div class="pure-u-1-2">
+                {{ Form::label('username','username',array('required'))}}
+                {{ Form::text('username') }}
+            </div>
+
+            <div class="pure-u-1-2">
+                {{ Form::label('password','password',array('required'))}}
+                {{ Form::text('password') }}
+            </div>
+        </div>
+
+        <legend>Role</legend>
+
+        <label for="role_admin" class="pure-radio">
+	        <input id="role_admin" type="radio" name="role" value="1">
+	        Administrator
+	    </label>
+
+	    <label for="role_user" class="pure-radio">
+	        <input id="role_user" type="radio" name="role" value="2" checked>
+	        User
+	    </label>
+
+        <button type="submit" class="pure-button blue"><i class="icon-plus"></i>Create</button>
+    </fieldset>
+{{ Form::close() }}

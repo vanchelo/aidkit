@@ -1,0 +1,36 @@
+<h1>Users</h1>
+
+<p class="note">
+	A list of all available users for this site can be found here.
+	Only Administrators can create/update/delete users.
+</p>
+
+@unless($users)
+	<p class="empty">Empty</p>
+@else
+		<table class="pure-table">
+			<thead>
+				<tr>
+					<th>username</th>
+					<th>name</th>
+					<th>email</th>
+					<th class="actions">actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach($users as $user)
+					<tr>
+						<td>{{ $user->username }}</td>
+						<td>{{ $user->name }}</td>
+						<td>{{ HTML::mailto($user->email) }}</td>
+						<td>
+							<a href="{{ URL::route('admin.users.show',$user->id) }}" class="pure-button blue"><i class="icon-eye-open"></i></a>
+							<a href="{{ URL::route('admin.users.edit',$user->id) }}" class="pure-button green"><i class="icon-edit"></i></a>
+						</td>
+					</tr>
+				@endforeach
+			</tbody>
+		</table>
+
+		{{ $users->links() }}
+@endunless

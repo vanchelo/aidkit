@@ -1,0 +1,9 @@
+<h1>User: {{ $user->name }}</h1>
+
+<a href="{{ URL::route('admin.users.edit',$user->id) }}" class="pure-button green">EDIT</a>
+
+{{ Form::open(array('route'=>array('admin.users.destroy',$user->id),'method'=>'DELETE'))}}
+	{{ Form::submit('DELETE') }}
+{{ Form::close() }}
+
+<p class="empty">Details follow</p>
