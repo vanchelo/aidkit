@@ -21,6 +21,11 @@ class AidkitModel extends Eloquent {
     		return $model->validate();	
     	});
 
+        static::saved(function($model)
+        {
+            return Actionlog::create('');
+        });
+
         static::updating(function($model)
         {
             return $model->validate();

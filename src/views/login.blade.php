@@ -28,7 +28,7 @@
 					{{ Form::password('password') }}
 
 					<label for="remember">
-		            	<input id="remember" type="checkbox"> Remember me
+		            	<input id="remember" name="remember" type="checkbox"> Remember me
 		        	</label>
 
 		        	 <button type="submit" class="pure-button green">Sign in</button>
