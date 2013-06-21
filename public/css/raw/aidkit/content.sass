@@ -1,0 +1,57 @@
+#content
+	width: 630px
+	padding: 0 20px
+	margin: 20px
+	min-height: 400px
+	background: #fff
+	border: 1px solid #d9d9d9
+
+p.empty
+	padding: 50px 0 	
+	width: 100%
+	font:
+		size: 40px
+		weight: 700
+	text-align: center
+	color: tint($grey,90%)
+	text-shadow: 0 -1px 1px tint($grey, 70%)
+
+ul.errors
+	margin: 0
+	background: $red
+	color: #fff
+	display: block
+	list-style: none
+	padding: 1em 2em
+
+	li
+		line-height: 1.6em
+
+.pagination
+
+	ul
+		margin: 0 
+		padding: 1em 0
+		text-align: center
+	li
+		display: inline-block
+		padding: 0 .5em
+
+		a
+			background: tint($grey,95%)
+			color: $body-color
+			display: block
+			text-decoration: none
+			@include size(2em)
+			line-height: 2em
+
+			&:hover
+				background: $blue
+				color: #fff
+		
+		&.disabled
+			opacity: 0.2
+
+		&.active a
+			background: $green
+			color: #fff

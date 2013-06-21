@@ -1,0 +1,10 @@
+<?php
+
+class AdminHomeController extends AidkitController {
+
+	public function showDashboard()
+	{
+		$this->layout->content = View::make('admin::dashboard');
+	}
+	
+}

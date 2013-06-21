@@ -1,0 +1,278 @@
+/* line 1, raw/aidkit/base.sass */
+body {
+  background: #e9e9e9;
+  color: #3f3f3f; }
+
+/* line 5, raw/aidkit/base.sass */
+input[type="email"], input[type="number"], input[type="password"], input[type="search"], input[type="tel"], input[type="text"], input[type="url"], input[type="color"], input[type="date"], input[type="datetime"], input[type="datetime-local"], input[type="month"], input[type="time"], input[type="week"] {
+  width: 90%;
+  margin-bottom: 0.9em; }
+
+/* line 9, raw/aidkit/base.sass */
+#layout {
+  padding-left: 170px; }
+
+/* line 12, raw/aidkit/base.sass */
+.blue {
+  color: steelblue;
+  border-color: steelblue !important; }
+
+/* line 15, raw/aidkit/base.sass */
+.green {
+  color: #00cd66;
+  border-color: #00cd66 !important; }
+
+/* line 18, raw/aidkit/base.sass */
+.red {
+  color: orangered;
+  border-color: orangered !important; }
+
+/* line 21, raw/aidkit/base.sass */
+.orange {
+  color: #ff7f24;
+  border-color: #ff7f24 !important; }
+
+/* line 24, raw/aidkit/base.sass */
+.yellow {
+  color: gold;
+  border-color: gold !important; }
+
+/* line 29, raw/aidkit/base.sass */
+form *[type="submit"] {
+  margin-top: 1.2em; }
+
+/* line 32, raw/aidkit/base.sass */
+table {
+  width: 100%; }
+  /* line 35, raw/aidkit/base.sass */
+  table .actions {
+    width: 5.1em; }
+  /* line 37, raw/aidkit/base.sass */
+  table .pure-button {
+    padding: 0.5em 0.7em; }
+    /* line 40, raw/aidkit/base.sass */
+    table .pure-button i {
+      margin: 0; }
+  /* line 42, raw/aidkit/base.sass */
+  table tr:nth-child(even) {
+    background: whitesmoke; }
+  /* line 45, raw/aidkit/base.sass */
+  table a {
+    color: steelblue;
+    text-decoration: none; }
+    /* line 48, raw/aidkit/base.sass */
+    table a:hover {
+      border-bottom: 1px dotted steelblue; }
+
+/* line 53, raw/aidkit/base.sass */
+.pure-button i {
+  margin-right: 10px; }
+/* line 56, raw/aidkit/base.sass */
+.pure-button.blue {
+  background: steelblue;
+  color: white;
+  border-color: steelblue !important; }
+  /* line 60, raw/aidkit/base.sass */
+  .pure-button.blue:hover {
+    background: #588ebb; }
+/* line 62, raw/aidkit/base.sass */
+.pure-button.green {
+  background: #00cd66;
+  color: white;
+  border-color: #00ae56 !important; }
+  /* line 66, raw/aidkit/base.sass */
+  .pure-button.green:hover {
+    background: #19d275; }
+/* line 68, raw/aidkit/base.sass */
+.pure-button.red {
+  background: orangered;
+  color: white;
+  border-color: orangered !important; }
+  /* line 72, raw/aidkit/base.sass */
+  .pure-button.red:hover {
+    background: #ff5719; }
+/* line 74, raw/aidkit/base.sass */
+.pure-button.orange {
+  background: #ff7f24;
+  color: white;
+  border-color: #ff7f24 !important; }
+  /* line 78, raw/aidkit/base.sass */
+  .pure-button.orange:hover {
+    background: #ff8b39; }
+/* line 80, raw/aidkit/base.sass */
+.pure-button.yellow {
+  background: gold;
+  color: white;
+  border-color: gold !important; }
+  /* line 84, raw/aidkit/base.sass */
+  .pure-button.yellow:hover {
+    background: #ffdb19; }
+
+/* line 1, raw/aidkit/login.sass */
+#logincontainer {
+  text-align: center; }
+
+/* line 3, raw/aidkit/login.sass */
+#login {
+  text-align: left;
+  padding: 20px;
+  position: relative;
+  margin: 0 auto;
+  background: white;
+  border: 1px solid #d9d9d9;
+  top: 4em; }
+  /* line 12, raw/aidkit/login.sass */
+  #login input[type="text"], #login input[type="password"] {
+    display: block;
+    width: 100%; }
+  /* line 16, raw/aidkit/login.sass */
+  #login button {
+    margin-top: 10px;
+    width: 100%; }
+
+/* line 3, raw/aidkit/menu.sass */
+#mainnavigation {
+  background: #252a3a;
+  color: white;
+  height: 100%;
+  margin-left: -170px;
+  padding: 0.5em 0;
+  position: fixed;
+  width: 170px;
+  z-index: 1; }
+  /* line 14, raw/aidkit/menu.sass */
+  #mainnavigation nav ul {
+    margin: 0;
+    padding: 0 0 0 10px; }
+  /* line 18, raw/aidkit/menu.sass */
+  #mainnavigation nav > ul > li {
+    display: block;
+    height: 2.5em; }
+    /* line 22, raw/aidkit/menu.sass */
+    #mainnavigation nav > ul > li a {
+      color: white;
+      display: block;
+      text-align: left;
+      line-height: 2.5em;
+      text-decoration: none;
+      text-transform: capitalize; }
+      /* line 31, raw/aidkit/menu.sass */
+      #mainnavigation nav > ul > li a i {
+        margin-right: 5px; }
+    /* line 34, raw/aidkit/menu.sass */
+    #mainnavigation nav > ul > li > a {
+      padding-left: 10px; }
+      /* line 37, raw/aidkit/menu.sass */
+      #mainnavigation nav > ul > li > a:hover {
+        background: #1f2331; }
+    /* line 40, raw/aidkit/menu.sass */
+    #mainnavigation nav > ul > li .sub-menu {
+      background: #1f2331;
+      visibility: hidden;
+      left: 190px;
+      margin-top: -2.5em;
+      opacity: 0;
+      position: relative;
+      padding: 0;
+      -webkit-transition: opacity 200ms ease-in-out, left 300ms ease-in-out;
+      -moz-transition: opacity 200ms ease-in-out, left 300ms ease-in-out;
+      transition: opacity 200ms ease-in-out, left 300ms ease-in-out; }
+      /* line 50, raw/aidkit/menu.sass */
+      #mainnavigation nav > ul > li .sub-menu > li > a {
+        padding: 0 10px; }
+        /* line 53, raw/aidkit/menu.sass */
+        #mainnavigation nav > ul > li .sub-menu > li > a:hover {
+          background: #3a3f4d; }
+    /* line 57, raw/aidkit/menu.sass */
+    #mainnavigation nav > ul > li:hover > a {
+      background: #1f2331; }
+    /* line 60, raw/aidkit/menu.sass */
+    #mainnavigation nav > ul > li:hover .sub-menu {
+      visibility: visible;
+      opacity: 1;
+      left: 160px; }
+    /* line 65, raw/aidkit/menu.sass */
+    #mainnavigation nav > ul > li.profile {
+      height: 50px;
+      margin-bottom: 4em; }
+      /* line 69, raw/aidkit/menu.sass */
+      #mainnavigation nav > ul > li.profile a {
+        line-height: 50px; }
+        /* line 72, raw/aidkit/menu.sass */
+        #mainnavigation nav > ul > li.profile a img {
+          padding: 0;
+          top: 10px;
+          margin-right: 5px;
+          position: relative;
+          height: 30px; }
+      /* line 79, raw/aidkit/menu.sass */
+      #mainnavigation nav > ul > li.profile .sub-menu {
+        margin-top: -50px; }
+    /* line 82, raw/aidkit/menu.sass */
+    #mainnavigation nav > ul > li.area {
+      height: 2em;
+      line-height: 2em;
+      border-bottom: 3px solid #3f3f3f;
+      font-size: 0.7em;
+      text-transform: uppercase; }
+
+/* line 1, raw/aidkit/content.sass */
+#content {
+  width: 630px;
+  padding: 0 20px;
+  margin: 20px;
+  min-height: 400px;
+  background: white;
+  border: 1px solid #d9d9d9; }
+
+/* line 9, raw/aidkit/content.sass */
+p.empty {
+  padding: 50px 0;
+  width: 100%;
+  font-size: 40px;
+  font-weight: 700;
+  text-align: center;
+  color: #ebebeb;
+  text-shadow: 0 -1px 1px #c5c5c5; }
+
+/* line 19, raw/aidkit/content.sass */
+ul.errors {
+  margin: 0;
+  background: orangered;
+  color: white;
+  display: block;
+  list-style: none;
+  padding: 1em 2em; }
+  /* line 27, raw/aidkit/content.sass */
+  ul.errors li {
+    line-height: 1.6em; }
+
+/* line 32, raw/aidkit/content.sass */
+.pagination ul {
+  margin: 0;
+  padding: 1em 0;
+  text-align: center; }
+/* line 36, raw/aidkit/content.sass */
+.pagination li {
+  display: inline-block;
+  padding: 0 0.5em; }
+  /* line 40, raw/aidkit/content.sass */
+  .pagination li a {
+    background: whitesmoke;
+    color: #3f3f3f;
+    display: block;
+    text-decoration: none;
+    width: 2em;
+    height: 2em;
+    line-height: 2em; }
+    /* line 48, raw/aidkit/content.sass */
+    .pagination li a:hover {
+      background: steelblue;
+      color: white; }
+  /* line 52, raw/aidkit/content.sass */
+  .pagination li.disabled {
+    opacity: 0.2; }
+  /* line 55, raw/aidkit/content.sass */
+  .pagination li.active a {
+    background: #00cd66;
+    color: white; }
