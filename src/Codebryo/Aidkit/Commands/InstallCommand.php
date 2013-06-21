@@ -46,6 +46,11 @@ class InstallCommand extends Command {
     	$this->createFolders();
     	$this->createViews();
     	$this->createRoutes();
+
+        // Call some other Functions
+        // config:publish vendor/package
+        $this->call('config.publish',array('argument'=>'codebryo/aidkit'));
+        $this->call('asset.publish',array('argument'=>'codebryo/aidkit'));
         return $this->info('Aidkit Installation complete!');
     }
 
@@ -55,6 +60,7 @@ class InstallCommand extends Command {
 		File::makeDirectory(app_path().'/views_admin');
 		File::makeDirectory(app_path().'/views_admin/layout');
 		File::makeDirectory(app_path().'/views_admin/layout/partials');
+        File::makeDirectory(app_path().'/views_admin/users');
 
 		$this->info('/views_admin Folder created');
 
@@ -71,7 +77,15 @@ class InstallCommand extends Command {
     	File::put(app_path().'/views_admin/layout/partials/navigation.blade.php',File::get($templatePath.'/views/partials/navigation.txt'));
     	File::put(app_path().'/views_admin/layout/partials/profile.blade.php',File::get($templatePath.'/views/partials/profile.txt'));
 
-    	$this->info('/views_admin Folder created');
+        // Create the User Views
+
+        File::put(app_path().'/views_admin/users/index.blade.php',File::get($templatePath.'/views/users/index.txt'));
+        File::put(app_path().'/views_admin/users/show.blade.php',File::get($templatePath.'/views/users/show.txt'));
+        File::put(app_path().'/views_admin/users/edit.blade.php',File::get($templatePath.'/views/users/edit.txt'));
+        File::put(app_path().'/views_admin/users/create.blade.php',File::get($templatePath.'/views/users/create.txt'));
+
+    	$this->info('Basic Views created');
+
     }
 
     protected function createRoutes()
