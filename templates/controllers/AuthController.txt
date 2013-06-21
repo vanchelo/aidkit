@@ -1,0 +1,30 @@
+<?php
+
+class AdminAuthController extends AidkitController {
+
+	// Show the Login Mask
+	public function getIndex()
+	{
+		return View::make('aidkit::login');
+	}
+
+	public function postIndex()
+	{
+		$remember = false;
+		if(Input::has('remember')) $remember = true;
+
+		if(Auth::attempt(array('username' => Input::get('username'),'password'=>Input::get('password')),$remember)) return Redirect::route('dashboard');
+
+		return View::make('aidkit::login')->with('status','failed');
+	}
+
+	public function logout()
+	{
+		
+		Auth::logout(); 
+		Session::flush();
+
+		return Redirect::to('/');
+
+	}
+}

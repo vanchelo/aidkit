@@ -1,0 +1,32 @@
+<?php
+
+/*
+ * All the Routes in this File are automatcly prefixed by the value provided in the config file.
+ * By Default: admin
+ *
+ */
+
+/*
+ *
+ * Feel free to edit those predefined Routes to your needs if you like.
+ *
+ */
+
+// Basic Route redirects to the dashboard route
+Route::get('/',function(){ return Redirect::route('dashboard'); });
+
+// Handle GET & POST login calls
+Route::controller('login','AdminAuthController');
+
+// Logout
+Route::get('logout','Aidkit\Controllers\AuthController@logout');
+
+// The Following Routes should be filtered
+Route::group(array('before'=>'auth'),function(){
+
+	Route::get('dashboard',array('as'=>'dashboard','uses'=>'AdminHomeController@showDashboard'));
+
+	// Aidkit provides all necessary Files for User CRUD out of the box
+	Route::resource('users', 'AdminUserController');
+
+});
