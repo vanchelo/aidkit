@@ -31,7 +31,12 @@ class AidkitServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		//
+		 $this->app['aidkit.install'] = $this->app->share(function($app)
+        {
+            return new Commands\InstallCommand();
+        });
+        
+        $this->commands('aidkit.install');
 	}
 
 	/**
