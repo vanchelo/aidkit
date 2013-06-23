@@ -1,5 +1,5 @@
 Route::group(array('prefix'=>Config::get('aidkit::config.prefix')),function(){
 
-	include './routes_aidkit.php';
+	include 'routes_aidkit.php';
 	
 });
