@@ -21,7 +21,6 @@ class AidkitServiceProvider extends ServiceProvider {
 		$this->package('codebryo/aidkit');
 
 		include __DIR__.'/../../start/global.php';
-		include __DIR__.'/../../routes.php';
 	}
 
 	/**

@@ -48,9 +48,9 @@ class InstallCommand extends Command {
     	$this->createRoutes();
 
         // Call some other Functions
-        // config:publish vendor/package
-        $this->call('config.publish',array('argument'=>'codebryo/aidkit'));
-        $this->call('asset.publish',array('argument'=>'codebryo/aidkit'));
+        $this->call('config:publish',array('argument'=>'codebryo/aidkit'));
+        $this->call('asset:publish',array('argument'=>'codebryo/aidkit'));
+
         return $this->info('Aidkit Installation complete!');
     }
 
@@ -91,6 +91,9 @@ class InstallCommand extends Command {
     protected function createRoutes()
     {
     	$templatePath = static::$templatePath;
+        File::append(app_path().'/routes.php',File::get($templatePath.'/routes_append.txt'));
+        $this->info('/routes.php modified');
+        
     	File::put(app_path().'/routes_aidkit.php',File::get($templatePath.'/routes.txt'));
 
     	$this->info('/routes_aidkit created');
