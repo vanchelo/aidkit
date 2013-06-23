@@ -43,13 +43,13 @@ class InstallCommand extends Command {
     	if(File::exists(app_path().'/views_admin'))
     		return $this->error('Aidkit seems to be installed allready!');
 
-    	// $this->createFolders();
-    	// $this->createViews();
-    	// $this->createRoutes();
+    	$this->createFolders();
+    	$this->createViews();
+    	$this->createRoutes();
+        $this->createConfig();
 
         // Call some other Functions
-        $this->call('config:publish',array('argument'=>'codebryo/aidkit'));
-        $this->call('asset:publish',array('argument'=>'codebryo/aidkit'));
+        $this->call('asset:publish',array('codebryo/aidkit'));
 
         return $this->info('Aidkit Installation complete!');
     }
@@ -97,5 +97,13 @@ class InstallCommand extends Command {
     	File::put(app_path().'/routes_aidkit.php',File::get($templatePath.'/routes.txt'));
 
     	$this->info('/routes_aidkit created');
+    }
+
+    protected function createConfig()
+    {
+        $templatePath = static::$templatePath;
+        File::makeDirectory(app_path().'/config/packages/codebryo');
+        File::makeDirectory(app_path().'/config/packages/codebryo/aidkit');
+        File::put(app_path().'/config/packages/codebryo/aidkit/config.php',File::get($templatePath.'/config.txt'));
     }
 }
