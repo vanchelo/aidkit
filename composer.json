@@ -1,6 +1,7 @@
 {
     "name": "codebryo/aidkit",
     "description": "The Admin Interface Development Kit for Laravel",
+    "keywords": ["admin","laravel","aidkit"],
     "authors": [
         {
             "name": "Roman Kuba - Codebryo",
