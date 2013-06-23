@@ -104,7 +104,7 @@ class InstallCommand extends Command {
         File::put(app_path().'/config/packages/codebryo/aidkit/config.php',File::get($templatePath.'/config.txt'));
     }
 
-    protcted function createControllers()
+    protected function createControllers()
     {
         $templatePath = static::$templatePath;
         File::put(app_path().'/controllers/Admin/AuthController.php',File::get($templatePath.'/controllers/AuthController.txt'));
