@@ -22,3 +22,8 @@ After that you have a new command available through artisan. Type `artisan aidki
 This process will create some necessary Files, publish some basic assets and config Files. 
 
 All Files will be available in your `/app` Folder. So feel free to edit them at will.
+
+### Migrations
+	
+Aidkit comes with a set of migrations to get you going from the start.
+The Migrations include a Usertable and a ActionLog.
