@@ -20,7 +20,7 @@ class AidkitController extends Controller {
 	{
 
 		// Provide the Layoutview depending on the Config Value
-		$this->layout = View::make('admin::'.Config::get('aidkit::config.layout');
+		$this->layout = View::make('admin::'.Config::get('aidkit::config.layout'));
 
 	}
 }

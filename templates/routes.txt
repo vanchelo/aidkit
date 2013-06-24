@@ -19,7 +19,7 @@ Route::get('/',function(){ return Redirect::route('dashboard'); });
 Route::controller('login','AdminAuthController');
 
 // Logout
-Route::get('logout','Aidkit\Controllers\AuthController@logout');
+Route::get('logout','AdminAuthController@logout');
 
 // The Following Routes should be filtered
 Route::group(array('before'=>'auth'),function(){
