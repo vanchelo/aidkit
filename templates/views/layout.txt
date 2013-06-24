@@ -15,7 +15,7 @@
 <body>
 	<div id="layout" class="pure-g-r">
 		<div id="mainnavigation" class="pure-u">
-			{{ $navigation }}
+			@include('admin::layout.partials.navigation')
 		</div>
 		<div id="content" class="pure-u">
 			{{ $content }}
