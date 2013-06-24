@@ -49,10 +49,12 @@ class InstallCommand extends Command {
             $this->info('Basic Views have been created');
         $this->createControllers();
             $this->info('Basic Controllers have been created');
-        $this->createRoutes();
-            $this->info('New Administrative Routes have been created');
+        $this->call('dump-autoload');
+        
         $this->createConfig();
             $this->info('Configuration File has been published');
+        $this->createRoutes();
+            $this->info('New Administrative Routes have been created');
 
         // Call some other Functions
         $this->call('asset:publish',array('codebryo/aidkit'));
@@ -78,6 +80,7 @@ class InstallCommand extends Command {
         File::put(app_path().'/views_admin/layout/login.blade.php',File::get($templatePath.'/views/login.txt'));
         File::put(app_path().'/views_admin/layout/partials/navigation.blade.php',File::get($templatePath.'/views/partials/navigation.txt'));
         File::put(app_path().'/views_admin/layout/partials/profile.blade.php',File::get($templatePath.'/views/partials/profile.txt'));
+        File::put(app_path().'/views_admin/dashboard.blade.php',File::get($templatePath.'/views/dashboard.txt'));
 
         // Create the User Views
 
@@ -101,7 +104,8 @@ class InstallCommand extends Command {
         $templatePath = static::$templatePath;
         File::makeDirectory(app_path().'/config/packages/codebryo');
         File::makeDirectory(app_path().'/config/packages/codebryo/aidkit');
-        File::put(app_path().'/config/packages/codebryo/aidkit/config.php',File::get($templatePath.'/config.txt'));
+        File::put(app_path().'/config/packages/codebryo/aidkit/config.php',File::get($templatePath.'/config/config.txt'));
+        File::put(app_path().'/config/packages/codebryo/aidkit/navigation.php',File::get($templatePath.'/config/navigation.txt'));
     }
 
     protected function createControllers()
