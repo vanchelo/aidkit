@@ -49,10 +49,10 @@ class InstallCommand extends Command {
             $this->info('Basic Views have been created');
         $this->createControllers();
             $this->info('Basic Controllers have been created');
-        // $this->createConfig();
-        //     $this->info('Configuration File has been published');
         $this->createRoutes();
             $this->info('New Administrative Routes have been created');
+        $this->createSeed();
+            $this->info('UserTableSeeder created');
 
         // Call some other Functions
         $this->call('config:publish',array('package'=>'codebryo/aidkit'));
@@ -100,20 +100,22 @@ class InstallCommand extends Command {
 
     }
 
-    protected function createConfig()
-    {
-        $templatePath = static::$templatePath;
-        File::makeDirectory(app_path().'/config/packages/codebryo');
-        File::makeDirectory(app_path().'/config/packages/codebryo/aidkit');
-        File::put(app_path().'/config/packages/codebryo/aidkit/config.php',File::get($templatePath.'/config/config.txt'));
-        File::put(app_path().'/config/packages/codebryo/aidkit/navigation.php',File::get($templatePath.'/config/navigation.txt'));
-    }
-
     protected function createControllers()
     {
         $templatePath = static::$templatePath;
         File::put(app_path().'/controllers/Admin/AuthController.php',File::get($templatePath.'/controllers/AuthController.txt'));
         File::put(app_path().'/controllers/Admin/HomeController.php',File::get($templatePath.'/controllers/HomeController.txt'));
         File::put(app_path().'/controllers/Admin/UserController.php',File::get($templatePath.'/controllers/UserController.txt'));
+    }
+
+    protected function createSeed()
+    {
+        $templatePath = static::$templatePath;
+        $str_to_insert = '$this->call(\'UsersTableSeeder\');';
+        $seeder = File::get(app_path().'/database/seeds/DatabaseSeeder.php');
+        $pos = strpos($seeder,'}');
+        $newSeeder = substr($oldstr, 0, $pos) . PHP_EOL . $str_to_insert . PHP_EOL . substr($oldstr, $pos);
+        File::put(app_path().'/database/seeds/DatabaseSeeder.php',$newSeeder);
+        File::put(app_path().'/database/seeds/UsersTableSeeder.php',File::get($templatePath.'/seed.txt'));
     }
 }
