@@ -49,16 +49,16 @@ class InstallCommand extends Command {
             $this->info('Basic Views have been created');
         $this->createControllers();
             $this->info('Basic Controllers have been created');
-        $this->call('dump-autoload');
-        
         // $this->createConfig();
         //     $this->info('Configuration File has been published');
         $this->createRoutes();
             $this->info('New Administrative Routes have been created');
 
         // Call some other Functions
-        $this->call('config:publish',array('codebryo/aidkit'));
-        $this->call('asset:publish',array('codebryo/aidkit'));
+        $this->call('config:publish',array('package'=>'codebryo/aidkit');
+        $this->call('asset:publish',array('package'=>'codebryo/aidkit'));
+
+        $this->call('dump-autoload');
 
         return $this->info('Aidkit Installation complete!');
     }
