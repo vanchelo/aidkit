@@ -55,7 +55,7 @@ class InstallCommand extends Command {
             $this->info('New Administrative Routes have been created');
 
         // Call some other Functions
-        $this->call('config:publish',array('package'=>'codebryo/aidkit');
+        $this->call('config:publish',array('package'=>'codebryo/aidkit'));
         $this->call('asset:publish',array('package'=>'codebryo/aidkit'));
 
         $this->call('dump-autoload');
