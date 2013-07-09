@@ -14,12 +14,11 @@ class CreateAidkitActionlogsTable extends Migration {
 		Schema::create('actionlogs', function($table)
 		{
 		    $table->increments('id');
-		    $table->integer('userid');
+		    $table->integer('user_id');
 		    $table->string('action');
 		    $table->string('object');
 		    $table->integer('object_id');
-		    $table->softDeletes();
-		    $table->timestamps();
+		    $table->timestamp('created_at')->default('CURRENT_TIMESTAMP');
 		});
 	}
 

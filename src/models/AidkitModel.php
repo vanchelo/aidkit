@@ -21,15 +21,21 @@ class AidkitModel extends Eloquent {
     		return $model->validate();	
     	});
 
-        static::saved(function($model)
+        static::created(function($model)
         {
-            return Actionlog::create('');
+            return Actionlog::create(array( 'user_id' => Auth::user()->id, 'action' => 'created','object' => get_class($model),'object_id' => $model->attributes['id'] ));
         });
 
-        static::updating(function($model)
+        static::updated(function($model)
         {
-            return $model->validate();
+            return Actionlog::create(array( 'user_id' => Auth::user()->id, 'action' => 'updated','object' => get_class($model),'object_id' => $model->attributes['id'] ));
         });
+
+        static::deleted(function($model)
+        {
+            return Actionlog::create(array( 'user_id' => Auth::user()->id, 'action' => 'deleted','object' => get_class($model),'object_id' => $model->attributes['id'] ));
+        });
+
     }
 
     public function validate()
@@ -38,7 +44,10 @@ class AidkitModel extends Eloquent {
         $rules = static::$rules;
 
         foreach($rules as $key=>$value){
-            $rules[$key] = str_replace("@id", $this->attributes['id'],$value);
+            if(!isset($this->attributes['id']))
+                $rules[$key] = str_replace(",@id",'',$value); // If there is no id set remove this placeholder from the validation
+            else
+                $rules[$key] = str_replace("@id", $this->attributes['id'],$value);
         }
         
     	$validation = Validator::make($this->attributes,$rules);
