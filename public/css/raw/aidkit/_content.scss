@@ -1,0 +1,160 @@
+#contentwrapper {
+	background: $content-bg;
+	padding-left: 200px;
+	letter-spacing: 0.08em;
+	box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.1);
+	min-height: 100%;
+
+	> aside {
+		float: left;
+		background: $nav-bg;
+		width: 200px;
+		margin-left: -200px;
+		height: 100%;
+		border-right: $main-border;
+	}
+}
+
+#title {
+	line-height: 100px;
+	margin: 0;
+	padding: 0 10px;
+	background: #fa542e;
+	color: #fff;
+	text-align: center;
+}
+
+#main {
+
+	li {
+		float: left;
+		width: 100%;
+		display: block;
+		
+		a {
+			display: block;
+			line-height: 40px;
+			text-transform: uppercase;
+			font-size: 0.8em;
+			height: 40px;
+
+			i {
+				font-size: 1.3em;
+				line-height: 40px;
+				text-align: center;
+				display: inline-block;
+				@include size(40px);
+				margin-right: 7px;
+				background: #c9c9c9;
+				@include transition(all 200ms ease-in-out);
+				color: #fff;
+			}
+
+			&:hover {
+
+				i {
+					background: #fa542e;
+				}
+			}
+		}
+
+		ul {
+			display: none;
+		}
+
+		&.on {
+			background: $content-bg;
+			margin-right: -1px;
+			border-bottom: $main-border;
+			border-right: 1px solid $content-bg;
+
+			i {
+				background: #fa542e;
+			}
+
+			ul {
+				display: block;
+				float: left;
+				width: 100%;
+
+				li {
+					padding-left: 47px;
+				}
+			}
+		}
+	}
+}
+
+#content {
+	width: 100%;
+
+	div[class*='pure-u-'] {
+		padding: 20px;
+		float: left;
+	}
+
+	h2 {
+		margin: 0;
+		padding: 0;
+		font-weight: normal;
+		padding-bottom: 15px;
+		line-height: 40px;
+
+		i {
+			display: inline-block;
+			color: $content-bg;
+			@include size(40px);
+			line-height: 40px;
+			text-align: center;
+			background: $btn-blue-bg;
+			border-radius: 40px;
+			margin-right: 10px;
+		}
+	}
+}
+
+#content header {
+	border-bottom: $main-border;
+	display: block;
+	height: 100px;
+	padding: 0 10px;
+	width: 100%;
+
+	h1 {
+		display: inline-block;
+		line-height: 100px;
+		margin: 0;
+		padding: 0;
+	}
+
+}
+
+#content .body {
+	float: left;
+
+	p {
+		line-height: 1.8em;
+
+		&.info {
+			background: $btn-yellow-bg;
+			padding: 10px;
+		}
+	}
+}
+
+#actions {
+	float: right;
+	display: inline-block;
+	position: relative;
+	top: 0;
+	right: 0;
+
+	li {
+		line-height: 100px;
+		float: left;
+		padding-left: 1px;
+
+		.pure-button { padding: 1em;}
+		i { font-size: 1.2em; margin-right: 4px}
+	}
+}

@@ -11,3 +11,4 @@ View::share('title',Config::get('aidkit::config.title'));
 
 
 include 'macros.php';
+include 'functions.php';

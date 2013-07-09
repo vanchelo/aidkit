@@ -1,0 +1,36 @@
+.pure-button {
+	color: $btn-color;
+	background: $btn-bg;
+
+	&:hover { color: shade($btn-color,10%); box-shadow: 0 2px 1px rgba(0,0,0,0.2) }
+}
+
+.pure-button-green {
+	@extend .pure-button;
+	background: $btn-green-bg;
+	&:hover { background: shade($btn-green-bg, 10%) }
+}
+
+.pure-button-blue {
+	@extend .pure-button;
+	background: $btn-blue-bg;
+	&:hover { background: shade($btn-blue-bg, 10%) }
+}
+
+.pure-button-red {
+	@extend .pure-button;
+	background: $btn-red-bg;
+	&:hover { background: shade($btn-red-bg, 10%) }
+}
+
+.pure-button-orange {
+	@extend .pure-button;
+	background: $btn-orange-bg;
+	&:hover { background: shade($btn-orange-bg, 10%) }
+}
+
+.pure-button-yellow {
+	@extend .pure-button;
+	background: $btn-yellow-bg;
+	&:hover { background: shade($btn-yellow-bg, 10%) }
+}

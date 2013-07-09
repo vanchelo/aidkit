@@ -1,0 +1,49 @@
+div,
+ul,
+header,
+footer,
+nav,
+aside,
+article,
+section,
+figure,
+figcaption {
+	box-sizing: border-box;
+}
+
+html,body {
+	height: 100%;
+}
+
+body {
+	background: $bg;
+	color: $color;
+	text-align: center;
+	font-size: 0.8em;
+	letter-spacing: 0.08em;
+}
+
+a {
+	color: $link-color;
+	@include transition( all 200ms ease-in-out);
+	text-decoration: none;
+
+	&:hover {
+		color: $color;
+	}
+}
+
+#wrapper {
+	display: inline-block;
+	text-align: left;
+	width: 100%;
+	max-width: 1080px;
+	min-height: 100%;
+	padding: 100px 0 20px;
+}
+
+nav ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}

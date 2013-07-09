@@ -1,0 +1,25 @@
+#wrapper > header {
+	height: 100px;
+	text-align: right;
+	margin-top: -100px;
+}
+
+#user {
+	height: 100%;
+	
+	ul {
+		height: 30px;
+		margin-top: 70px;
+		float: right;
+		vertical-align: bottom;
+		font-size: 0.8em;
+
+		li {
+			float: left;
+			padding: 0 10px;
+
+			&:first-child {border-right: 1px solid rgba(0,0,0,0.1);}
+			&:nth-child(2) {border-left: 1px solid rgba(255,255,255,0.9);}
+		}
+	}
+}
