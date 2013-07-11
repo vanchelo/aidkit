@@ -6,25 +6,21 @@ return array(
 
 		'dashboard' => array(
 			'icon' 	=> 'icon-dashboard',
-			'route' => 'dashboard'
+			'url' => route('dashboard'),
 		),
 		'users' => array(
 			'icon' 	=> 'icon-user',
-			'route'	=> 'admin.users.index',
+			'url'	=> route('admin.users.index'),
 			
 			'sub-menu' => array(
 				'create' => array(
-					'icon' 	=> 'icon-plus',
-					'route' 	=> 'admin.users.create'
+					'title' => 'New User',
+					'url' 	=> route('admin.users.create')
 				)	
 			)
 			
 		),
-		'logout' => array(
-			'icon' 	=> 'icon-off',
-			'url'	=> 'admin/logout'
-		),
-
+		
 	)
 
 );
