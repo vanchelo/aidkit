@@ -4,7 +4,8 @@ class AdminHomeController extends AidkitController {
 
 	public function showDashboard()
 	{
-		$this->layout->content = View::make('admin::dashboard');
+		$actions = Actionlog::where('user_id',Auth::user()->id)->orderBy('created_at','desc')->take(10)->get();
+		$this->layout->content = View::make('admin::dashboard',compact('actions'));
 	}
 	
 }

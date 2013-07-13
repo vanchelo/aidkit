@@ -52,10 +52,16 @@ class AdminUserController extends AidkitController{
 
 	public function destroy($id)
 	{
-		$user = User::findOrFail($id);
-		$user->delete();
+		if(strtoupper(Input::get('delete')) == 'DELETE'){
+			$user = User::findOrFail($id);
+			$user->delete();
 
-		return Redirect::route('admin.users.index');
+			return Redirect::route('admin.users.index');
+		}
+		else {
+			return Redirect::route('admin.users.show',$id);
+		}
+		
 	}
 	
 }

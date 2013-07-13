@@ -13,7 +13,7 @@ class AdminAuthController extends AidkitController {
 		$remember = false;
 		if(Input::has('remember')) $remember = true;
 
-		if(Auth::attempt(array('username' => Input::get('username'),'password'=>Input::get('password')),$remember)) return Redirect::route('dashboard');
+		if(Auth::attempt(array('username' => Input::get('username'),'password'=>Input::get('password'),'role'=>1),$remember)) return Redirect::route('dashboard');
 
 		return View::make('admin::'.Config::get('aidkit::config.login'))->with('status','failed');
 	}
