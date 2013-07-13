@@ -1,8 +1,8 @@
 <?php
 
 /*
- * All the Routes in this File are automatcly prefixed by the value provided in the config file.
- * By Default: admin
+ * All the Routes in this File are automaticly prefixed by the value provided in the config file.
+ * Default: admin
  *
  */
 
@@ -22,11 +22,23 @@ Route::controller('login','AdminAuthController');
 Route::get('logout','AdminAuthController@logout');
 
 // The Following Routes should be filtered
-Route::group(array('before'=>'auth'),function(){
+Route::group(array('before'=>'adminauth'),function(){
 
 	Route::get('dashboard',array('as'=>'dashboard','uses'=>'AdminHomeController@showDashboard'));
 
 	// Aidkit provides all necessary Files for User CRUD out of the box
+
 	Route::resource('users', 'AdminUserController');
+
+	// Any Form Related routes should go in here
+	Route::group(array('before'=>'csrf'),function(){
+
+	});
+
+	// Some views can be loaded through ajax. They will be returned correctly by this route
+	// Example: It is used for creating the DELETE model window
+	Route::get('js/{template}',function($template){
+			return View::make('admin::js-views.'.$template);
+	});
 
 });

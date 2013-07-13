@@ -16,6 +16,11 @@ Route::group(array('prefix'=>Config::get('aidkit::config.urlprefix')),function()
 	
 });
 
+Route::filter('adminauth', function()
+{
+	if (Auth::guest()) return Redirect::guest(Config::get('aidkit::config.urlprefix').'/login');
+});
+
 
 include 'macros.php';
 include 'functions.php';
