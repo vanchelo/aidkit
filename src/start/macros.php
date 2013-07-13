@@ -44,3 +44,10 @@ HTML::macro('aidkitErrors',function($errors){
 	endif;
 	return $html;
 });
+
+HTML::macro('aidkitBaseTag',function(){
+
+	$url =  url('/'.Config::get('aidkit::config.urlprefix'));
+	return sprintf('<base href="%s">',$url);
+
+});
