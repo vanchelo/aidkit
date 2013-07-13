@@ -1,0 +1,66 @@
+.pure-form {
+
+	legend {
+		border-bottom: 1px dashed $border-color;
+		line-height: 1.5em;
+	}
+	#{$all-text-inputs} {
+  		width: 100%;
+  		border: $main-border;
+		padding: .9em .6em;
+		font-size: 0.9em;
+
+		&:focus {
+			border-color: $btn-blue-bg;
+		} 		
+	}
+	#{$all-text-inputs},button {
+		&.cling {
+			border-radius: 0;
+		}
+
+		&.cling-right {
+			border-radius: 5px 0 0 5px;
+		}
+
+		&.cling-left {
+			border-radius: 0 5px 5px 0;
+		}
+	}
+
+	input[type=checkbox],
+	input[type=radio] {
+		margin-right: 10px;
+		margin-bottom: 0.9em;
+	}
+
+	.form-bottom {
+		text-align: right;
+	}
+
+	input[type="submit"],
+	button[type="submit"] {
+		padding: 1em;
+		i { font-size: 1.2em; margin-right: 4px}
+	}
+
+	a.cancel {
+		color: $btn-red-bg;
+		text-decoration: underline;
+		margin-right: 20px;
+	}
+
+	label {
+		color: $color;
+		
+		&.required:after {
+			@include icon-FontAwesome();
+			content: $asterisk;
+			margin-left: 0.8em;
+			font-size: 0.3em;
+			vertical-align: text-top;
+			color: $btn-blue-bg;
+		}
+	}
+}
+

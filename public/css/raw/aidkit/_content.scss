@@ -68,6 +68,10 @@
 			border-bottom: $main-border;
 			border-right: 1px solid $content-bg;
 
+			> a {
+				color: $color;
+			}
+
 			i {
 				background: #fa542e;
 			}
@@ -78,7 +82,15 @@
 				width: 100%;
 
 				li {
+					box-sizing: border-box;
 					padding-left: 47px;
+
+					&.on {
+						a {
+							color: $color;
+						}
+					}
+					
 				}
 			}
 		}
@@ -117,7 +129,7 @@
 	border-bottom: $main-border;
 	display: block;
 	height: 100px;
-	padding: 0 10px;
+	padding: 0 20px;
 	width: 100%;
 
 	h1 {
