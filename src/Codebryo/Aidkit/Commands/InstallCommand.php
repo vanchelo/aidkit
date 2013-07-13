@@ -83,7 +83,7 @@ class InstallCommand extends Command {
         File::put(app_path().'/views_admin/layout/partials/navigation.blade.php',File::get($templatePath.'/views/partials/navigation.txt'));
         File::put(app_path().'/views_admin/dashboard.blade.php',File::get($templatePath.'/views/dashboard.txt'));
 
-        File::put(app_path().'/views_admin/layout/js-views/delete.blade.php',File::get($templatePath.'/views/js/delete.txt'));
+        File::put(app_path().'/views_admin/js-views/delete.blade.php',File::get($templatePath.'/views/js/delete.txt'));
 
         // Create the User Views
 
@@ -97,7 +97,7 @@ class InstallCommand extends Command {
     {
         $templatePath = static::$templatePath;
 
-        File::put(app_path().'/routes_aidkit.php',File::get($templatePath.'/routes.txt'));
+        File::put(app_path().'/routes_admin.php',File::get($templatePath.'/routes.txt'));
 
     }
 
@@ -115,7 +115,7 @@ class InstallCommand extends Command {
         $str_to_insert = '$this->call(\'UsersTableSeeder\');';
         $seeder = File::get(app_path().'/database/seeds/DatabaseSeeder.php');
         $pos = strpos($seeder,'}');
-        $newSeeder = substr($oldstr, 0, $pos) . PHP_EOL . $str_to_insert . PHP_EOL . substr($oldstr, $pos);
+        $newSeeder = substr($seeder, 0, $pos) . PHP_EOL . $str_to_insert . PHP_EOL . substr($seeder, $pos);
         File::put(app_path().'/database/seeds/DatabaseSeeder.php',$newSeeder);
         File::put(app_path().'/database/seeds/UsersTableSeeder.php',File::get($templatePath.'/seed.txt'));
     }
