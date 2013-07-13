@@ -1,20 +1,32 @@
-<h1>Users</h1>
+<header>
+	<h1>Users</h1>
 
-<p class="note">
+	<nav id="actions">
+		<ul>
+			<li><a href="{{ route('admin.users.create') }}" class="pure-button-green"><i class="icon-plus"></i> New User</a></li>
+		</ul>
+	</nav>
+
+</header>
+<div class="body">
+	<div class="pure-u-1">
+	<h2><i class="icon-user"></i>List of Users</h2>
+	<p class="note">
 	A list of all available users for this site can be found here.
 	Only Administrators can create/update/delete users.
-</p>
+	</p>
 
 @unless($users)
 	<p class="empty">Empty</p>
 @else
-		<table class="pure-table">
+		<table>
 			<thead>
 				<tr>
 					<th>username</th>
 					<th>name</th>
 					<th>email</th>
-					<th class="actions">actions</th>
+					<th class="center">admin</th>
+					<th class="center">actions</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -23,9 +35,10 @@
 						<td>{{ $user->username }}</td>
 						<td>{{ $user->name }}</td>
 						<td>{{ HTML::mailto($user->email) }}</td>
-						<td>
-							<a href="{{ URL::route('admin.users.show',$user->id) }}" class="pure-button blue"><i class="icon-eye-open"></i></a>
-							<a href="{{ URL::route('admin.users.edit',$user->id) }}" class="pure-button green"><i class="icon-edit"></i></a>
+						<td class="cling">{{ ( $user->role == 1 ? '<i class="icon-check"></i>' : '<i class="icon-check-empty"></i>') }}</td>
+						<td class="cling actions">
+							<a href="{{ URL::route('admin.users.show',$user->id) }}" class="pure-button-blue"><i class="icon-eye-open"></i></a>
+							<a href="{{ URL::route('admin.users.edit',$user->id) }}" class="pure-button-green"><i class="icon-edit"></i></a>
 						</td>
 					</tr>
 				@endforeach
@@ -34,3 +47,5 @@
 
 		{{ $users->links() }}
 @endunless
+	</div>
+</div>

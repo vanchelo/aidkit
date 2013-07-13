@@ -1,0 +1,15 @@
+<h3>Delete</h3>
+
+{{ Form::open(array('url' => URL::previous(), 'method' => 'DELETE','class' => 'pure-form')) }}
+<div class="pure-g">
+	<div class="pure-u-1">
+		<p>Type <strong>DELETE</strong> to remove this entry.</p>
+	</div>
+	<div class="pure-u-1">
+		{{ Form::text('delete','',array('autofocus','autocomplete' => 'off')) }}
+	</div>
+	<div class="pure-u-1">
+		<button type="submit" class="pure-button-red">Do it</button>
+	</div>
+</div>
+{{ Form::close() }}

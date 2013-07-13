@@ -1,45 +1,63 @@
-<h1>Create a new User</h1>
-
-{{ Form::open(array('route'=>'admin.users.store','class'=>'pure-form pure-form-stacked'))}}
+<header>
+    <h1>Create a new User</h1>  
+</header>
+<div class="body">
+    <div class="pure-u-1">
+        {{ Form::open(array('route'=>'admin.users.store','class'=>'pure-form pure-form-stacked'))}}
     <fieldset>
         <legend>Details</legend>
 
         {{ HTML::aidkitErrors($errors) }}
 
-        <div class="pure-g-r">
-            <div class="pure-u-1-2">
-                {{ Form::label('name','name',array('required'))}}
-                {{ Form::text('name') }}
-            </div>
+        <div class="pure-u-1-2">
+            {{ Form::label('name','name',array('class'=>'required'))}}
+            {{ Form::text('name') }}
+        </div>
 
-            <div class="pure-u-1-2">
-                {{ Form::label('email','email',array('required'))}}
-                {{ Form::email('email') }}
-            </div>
+        <div class="pure-u-1-2">
+            {{ Form::label('email','email',array('class'=>'required'))}}
+            {{ Form::email('email') }}
+        </div>
 
-            <div class="pure-u-1-2">
-                {{ Form::label('username','username',array('required'))}}
-                {{ Form::text('username') }}
-            </div>
+        <div class="pure-u-1-2">
+            {{ Form::label('username','username',array('class'=>'required'))}}
+            {{ Form::text('username') }}
+        </div>
 
-            <div class="pure-u-1-2">
-                {{ Form::label('password','password',array('required'))}}
-                {{ Form::text('password') }}
-            </div>
+        <div class="pure-u-1-2">
+            {{ Form::label('password','password',array('class'=>'required'))}}
+            {{ Form::text('password') }}
         </div>
 
         <legend>Role</legend>
 
-        <label for="role_admin" class="pure-radio">
-	        <input id="role_admin" type="radio" name="role" value="1">
-	        Administrator
-	    </label>
+        <div class="pure-u-1-2">
+            <label for="role_admin" class="pure-radio">
+                <input id="role_admin" type="radio" name="role" value="1">
+                Administrator
+            </label>
 
-	    <label for="role_user" class="pure-radio">
-	        <input id="role_user" type="radio" name="role" value="2" checked>
-	        User
-	    </label>
+            <label for="role_user" class="pure-radio">
+                <input id="role_user" type="radio" name="role" value="2" checked>
+                User
+            </label>
+        </div>
 
-        <button type="submit" class="pure-button blue"><i class="icon-plus"></i>Create</button>
+        <div class="pure-u-1-2">
+            <p class="info">
+            <strong>Note:</strong>
+                Be aware that by default only Administrators can login to the backend. Feel free to change that if you prefer.
+                <br>
+                You may also create more userroles if you like.
+            </p>
+        </div>
+
+        <div class="pure-u-1 form-bottom">
+            <a href="{{ route('admin.users.index') }}" class="cancel">Cancel</a>
+            <button type="submit" class="pure-button-blue"><i class="icon-plus"></i>Create</button>
+        </div>
+
     </fieldset>
 {{ Form::close() }}
+    </div>
+</div>

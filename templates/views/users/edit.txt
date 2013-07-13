@@ -1,49 +1,67 @@
-<h1>Update User: {{ $user->name }}</h1>
+<header>
+    @if($user->id == Auth::user()->id)
+        <h1>Update Profile</h1>
 
-{{ Form::model($user,array('route'=>array('admin.users.update',$user->id),'method'=>'PATCH','class'=>'pure-form pure-form-stacked'))}}
+        <nav id="actions">
+            <ul>
+                <li><a href="#settings" class="pure-button-green"><i class="icon-wrench"></i> Settings</a></li>
+            </ul>
+        </nav>
+    @else
+        <h1>Update User: {{ $user->name }}</h1>
+    @endif
+</header>
+<div class="body">
+    <div class="pure-u-1">
+        {{ Form::model($user,array('route'=>array('admin.users.update',$user->id),'method'=>'PATCH','class'=>'pure-form pure-form-stacked'))}}
     <fieldset>
         <legend>Details</legend>
 
         {{ HTML::aidkitErrors($errors) }}
 
-        <div class="pure-g-r">
-            <div class="pure-u-1-2">
-                {{ Form::label('name','name',array('required'))}}
-                {{ Form::text('name') }}
-            </div>
+        <div class="pure-u-1-2">
+            {{ Form::label('name','name',array('class'=>'required'))}}
+            {{ Form::text('name') }}
+        </div>
 
-            <div class="pure-u-1-2">
-                {{ Form::label('email','email',array('required'))}}
-                {{ Form::email('email') }}
-            </div>
+        <div class="pure-u-1-2">
+            {{ Form::label('email','email',array('class'=>'required'))}}
+            {{ Form::email('email') }}
+        </div>
 
-            <div class="pure-u-1-2">
-                {{ Form::label('username','username',array('required'))}}
-                {{ Form::text('username') }}
-            </div>
+        <div class="pure-u-1-2">
+            {{ Form::label('username','username',array('class'=>'required'))}}
+            {{ Form::text('username') }}
         </div>
 
         <legend>Update Password</legend>
 
-        <div class="pure-g-r">
-             <div class="pure-u-1-2">
-                {{ Form::label('new_password','New password',array('required'))}}
-                {{ Form::text('new_password') }}
-            </div>
+         <div class="pure-u-1-2">
+            {{ Form::label('new_password','New password',array('required'))}}
+            {{ Form::text('new_password') }}
         </div>
+
 
         <legend>Role</legend>
 
-        <label for="role_admin" class="pure-radio">
-	        <input id="role_admin" type="radio" name="role" value="1" {{ ($user->role == 1 ? 'checked' : null) }}>
-	        Administrator
-	    </label>
+        <div class="pure-u-1">
+            <label for="role_admin" class="pure-radio">
+                <input id="role_admin" type="radio" name="role" value="1" {{ ($user->role == 1 ? 'checked' : null) }}>
+                Administrator
+            </label>
 
-	    <label for="role_user" class="pure-radio">
-	        <input id="role_user" type="radio" name="role" value="2" {{ ($user->role == 2 ? 'checked' : null) }}>
-	        User
-	    </label>
+            <label for="role_user" class="pure-radio">
+                <input id="role_user" type="radio" name="role" value="2" {{ ($user->role == 2 ? 'checked' : null) }}>
+                User
+            </label>
+        </div>
 
-        <button type="submit" class="pure-button green"><i class="icon-edit"></i>Update</button>
+        <div class="pure-u-1 form-bottom">
+            <a href="{{ route('admin.users.index') }}" class="cancel">Cancel</a>
+            <button type="submit" class="pure-button-green"><i class="icon-edit"></i>Update</button>
+        </div>
+
     </fieldset>
 {{ Form::close() }}
+    </div>
+</div>

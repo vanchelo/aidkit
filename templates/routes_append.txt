@@ -1,8 +1,0 @@
-
-
-// Aidkit Routes will be prefixed for you
-Route::group(array('prefix'=>Config::get('aidkit::config.urlprefix')),function(){
-
-	include 'routes_aidkit.php';
-	
-});

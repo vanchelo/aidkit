@@ -1,25 +1,45 @@
 <!doctype html>
 <html lang="en">
 <head>
+
+	{{ HTML::aidkitBaseTag() }}
 	<meta charset="UTF-8">
 	<title>{{ $title }}</title>
 
-	<!-- <link href="//netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.css" rel="stylesheet"> -->
-
-	{{ HTML::style('packages/codebryo/aidkit/css/vendor/pure.min.css')}}
-	{{ HTML::style('packages/codebryo/aidkit/css/vendor/font-awesome.min.css')}}
-	{{ HTML::style('packages/codebryo/aidkit/css/vendor/animate.min.css')}}
 	{{ HTML::style('packages/codebryo/aidkit/css/style.css')}}
+
+	{{ HTML::script('packages/codebryo/aidkit/js/libs/jquery.min.js') }}
 
 </head>
 <body>
-	<div id="layout" class="pure-g-r">
-		<div id="mainnavigation" class="pure-u">
+
+<div id="wrapper">
+
+	<header>
+		<nav id="user">
+			<ul>
+				<li>Hello, {{ Auth::user()->username }}</li>
+				<li><a href="{{ URL::route('admin.users.edit', Auth::user()->id) }}">Edit Profile</a></li>
+				<li><a href="{{ URL::to('admin/logout') }}">Logout</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<div id="contentwrapper" class="pure-g-r">
+
+		<aside class="pure-u-1">
+			<h1 id="title"><i class="icon-medkit"></i> Aidkit</h1>
+
 			@include('admin::layout.partials.navigation')
-		</div>
-		<div id="content" class="pure-u">
+
+		</aside>
+
+		<section id="content" class="pure-u-1">
 			{{ $content }}
-		</div>
+		</section>
+
 	</div>
+</div>
+	{{ HTML::script('packages/codebryo/aidkit/js/script.js') }}
 </body>
 </html>

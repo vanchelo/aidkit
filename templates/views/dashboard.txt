@@ -1,3 +1,32 @@
-<h2>Dashboard</h2>
+<header>
+	<h1>Dashboard</h1>
+</header>
+<div class="body">
+	<div class="pure-u-1">
+	<h2><i class="icon-book"></i>Latest Actions</h2>
+	@unless($actions)
+		<p class="empty">
+			Nothing here yet
+		</p>
+	@else
+	
+	<table>
+		<thead>
+			<tr>
+				<th>Action</th>
+				<th class="center"><i class="icon-time"></i> - <i class="icon-calendar"></i></th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach($actions as $action)
+				<tr>
+					<td>{{ actionMessage($action) }}</td>
+					<td class="cling border">{{ $action->created_at }}</td>
+				</tr>
+			@endforeach
+		</tbody>
+	</table>
 
-<p class="empty">More to come</p>
+	@endunless
+	</div>
+</div>
