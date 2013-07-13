@@ -12,7 +12,7 @@ View::share('title',Config::get('aidkit::config.title'));
 // Route Grouping created
 Route::group(array('prefix'=>Config::get('aidkit::config.urlprefix')),function(){
 
-	include app_path().'/routes_admin.php';
+	if(File::exists(app_path().'/routes_admin.php')) include app_path().'/routes_admin.php';
 	
 });
 
