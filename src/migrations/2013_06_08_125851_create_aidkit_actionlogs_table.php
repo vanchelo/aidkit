@@ -18,7 +18,7 @@ class CreateAidkitActionlogsTable extends Migration {
 		    $table->string('action');
 		    $table->string('object');
 		    $table->integer('object_id');
-		    $table->timestamp('created_at')->default('CURRENT_TIMESTAMP');
+		    $table->timestamp('created_at');
 		});
 	}
 
