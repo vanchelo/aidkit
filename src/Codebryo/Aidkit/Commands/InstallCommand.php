@@ -67,6 +67,7 @@ class InstallCommand extends Command {
     {
         // Create the admin_views Folder
         File::makeDirectory(app_path().'/views_admin');
+        File::makeDirectory(app_path().'/views_admin/js-views');
         File::makeDirectory(app_path().'/views_admin/layout');
         File::makeDirectory(app_path().'/views_admin/layout/partials');
         File::makeDirectory(app_path().'/views_admin/users');
@@ -80,8 +81,9 @@ class InstallCommand extends Command {
         File::put(app_path().'/views_admin/layout/layout.blade.php',File::get($templatePath.'/views/layout.txt'));
         File::put(app_path().'/views_admin/layout/login.blade.php',File::get($templatePath.'/views/login.txt'));
         File::put(app_path().'/views_admin/layout/partials/navigation.blade.php',File::get($templatePath.'/views/partials/navigation.txt'));
-        File::put(app_path().'/views_admin/layout/partials/profile.blade.php',File::get($templatePath.'/views/partials/profile.txt'));
         File::put(app_path().'/views_admin/dashboard.blade.php',File::get($templatePath.'/views/dashboard.txt'));
+
+        File::put(app_path().'/views_admin/layout/js-views/delete.blade.php',File::get($templatePath.'/views/js/delete.txt'));
 
         // Create the User Views
 
@@ -94,7 +96,6 @@ class InstallCommand extends Command {
     protected function createRoutes()
     {
         $templatePath = static::$templatePath;
-        File::append(app_path().'/routes.php',File::get($templatePath.'/routes_append.txt'));
 
         File::put(app_path().'/routes_aidkit.php',File::get($templatePath.'/routes.txt'));
 
