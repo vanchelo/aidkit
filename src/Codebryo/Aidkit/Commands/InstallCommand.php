@@ -78,7 +78,7 @@ class InstallCommand extends Command {
     protected function createViews()
     {
         $templatePath = static::$templatePath;
-        File::put(app_path().'/views_admin/layout/layout.blade.php',File::get($templatePath.'/views/layout.txt'));
+        File::put(app_path().'/views_admin/layout/master.blade.php',File::get($templatePath.'/views/layout.txt'));
         File::put(app_path().'/views_admin/layout/login.blade.php',File::get($templatePath.'/views/login.txt'));
         File::put(app_path().'/views_admin/layout/partials/navigation.blade.php',File::get($templatePath.'/views/partials/navigation.txt'));
         File::put(app_path().'/views_admin/dashboard.blade.php',File::get($templatePath.'/views/dashboard.txt'));
