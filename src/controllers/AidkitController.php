@@ -10,7 +10,7 @@ class AidkitController extends Controller {
 	protected $layout = null;
 
 	/**
-	 * The Aidkit Controller can parse together your Layout similiar to the BaseController
+	 * The Aidkit Controller can parse together your Layout similar to the BaseController
 	 * included in L4 by default. But it takes care of including the correct layout
 	 *
 	 * @return void

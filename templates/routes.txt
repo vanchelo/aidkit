@@ -1,7 +1,7 @@
 <?php
 
 /*
- * All the Routes in this File are automaticly prefixed by the value provided in the config file.
+ * All the Routes in this File are automatically prefixed by the value provided in the config file.
  * Default: admin
  *
  */

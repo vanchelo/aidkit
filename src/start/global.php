@@ -1,6 +1,6 @@
 <?php
 
-// Add a namespace for the views so they can get reachted easy
+// Add a namespace for the views so they can get reached easy
 
 View::addNamespace('admin', app_path().'/views_admin');
 

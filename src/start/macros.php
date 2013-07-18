@@ -1,6 +1,6 @@
 <?php
 
-// Macros for gernerating Aidkit Elements
+// Macros for generating Aidkit Elements
 
 // Generate Navigation
 
@@ -19,7 +19,7 @@ HTML::macro('aidkitNavigation',function($array){
 		// pass together the whole anchor tag
 		$anchor = sprintf('<a href="%s">%s%s</a>',$attributes['url'],$icon,$title);
 		
-		// Check if ther is a submenu. If Yes, run that itself through this macro
+		// Check if there is a submenu. If Yes, run that itself through this macro
 		$submenu = (isset($attributes['sub-menu']) ? sprintf('<ul class="sub-menu">%s</ul>',HTML::aidkitNavigation($attributes['sub-menu'])) : null );
 		
 		// Check for the current URL if it matches any Anchors
@@ -32,7 +32,7 @@ HTML::macro('aidkitNavigation',function($array){
 
 	}
 
-	// Pass back the entire naviation list
+	// Pass back the entire navigation list
 	return $html;
 });
 

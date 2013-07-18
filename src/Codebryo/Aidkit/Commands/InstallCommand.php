@@ -41,7 +41,7 @@ class InstallCommand extends Command {
     public function fire()
     {
         if(File::exists(app_path().'/views_admin'))
-            return $this->error('Aidkit seems to be installed allready!');
+            return $this->error('Aidkit seems to be installed already!');
 
         $this->createFolders();
             $this->info('Basic Folder Structure has been created');
