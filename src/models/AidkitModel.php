@@ -23,17 +23,17 @@ class AidkitModel extends Eloquent {
 
         static::created(function($model)
         {
-            return Actionlog::create(array( 'user_id' => Auth::user()->id, 'action' => 'created','object' => get_class($model),'object_id' => $model->attributes['id'], 'created_at' => date('Y-m-d H:i:s') ));
+            return Actionlog::create(array( 'user_id' => Auth::user()->id, 'action' => 'created','object' => get_class($model),'object_id' => $model->getKey(), 'created_at' => date('Y-m-d H:i:s') ));
         });
 
         static::updated(function($model)
         {
-            return Actionlog::create(array( 'user_id' => Auth::user()->id, 'action' => 'updated','object' => get_class($model),'object_id' => $model->attributes['id'], 'created_at' => date('Y-m-d H:i:s') ));
+            return Actionlog::create(array( 'user_id' => Auth::user()->id, 'action' => 'updated','object' => get_class($model),'object_id' => $model->getKey(), 'created_at' => date('Y-m-d H:i:s') ));
         });
 
         static::deleted(function($model)
         {
-            return Actionlog::create(array( 'user_id' => Auth::user()->id, 'action' => 'deleted','object' => get_class($model),'object_id' => $model->attributes['id'], 'created_at' => date('Y-m-d H:i:s') ));
+            return Actionlog::create(array( 'user_id' => Auth::user()->id, 'action' => 'deleted','object' => get_class($model),'object_id' => $model->getKey(), 'created_at' => date('Y-m-d H:i:s') ));
         });
 
     }
