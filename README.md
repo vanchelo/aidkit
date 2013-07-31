@@ -9,7 +9,15 @@ http://codebryo.github.io/aidkit/img/screen1.png
 
 ## New Features
 
-- `HTML::aidkitReadableTime($timestamp)` - This is a new HTML macro for you to create easy to read times out of PHP or UNIX Timestamps (i.e. 2013-07-18 09:31:21 => Thursday at 9:31 am ) 
+- Facade Support
+	- **Compose:**
+		- `Aidkit::composeActionMessage($actioon)` - Will return a well formatted string based on the Action provided
+		- `Aidkit::composeReadableTime($timestamp)` - Will create easy to read times out of PHP or UNIX Timestamps (i.e. 2013-07-18 09:31:21 => Thursday at 9:31 am ) 
+	- **Render:**
+		- `Aidkit::renderBaseTag()` - Generates the HTML5 Base tag including the Value for the Backend defined in the Configfile
+		- `Aidkit::renderErrors($errors)` - If there are any errors the will be nicely renderd as listitems in a unordered list
+		- `Aidkit::renderNavigation($array)` - Will return a HTML rendered version of the navigation array. By default you may want to load the Navigation from the configfile like `Config::get('aidkit::navigation.navigation')`
+
 
 Latest Stable:
 - ... not yet
