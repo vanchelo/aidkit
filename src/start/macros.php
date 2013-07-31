@@ -53,7 +53,7 @@ HTML::macro('aidkitBaseTag',function(){
 });
 
 // Turn Timestamps or DateTimes to beautiful Readable Dates like: 10 Seconds ago, in 4 days, ...
-HTML::macro('aidkitReadableDate',function($timestamp){
+HTML::macro('aidkitReadableTime',function($timestamp){
 	if( is_numeric($timestamp) && (int)$timestamp == $timestamp )
 		$timestamp = $timestamp;
 	else
