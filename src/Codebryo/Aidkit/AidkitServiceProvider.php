@@ -30,12 +30,37 @@ class AidkitServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		 $this->app['aidkit.install'] = $this->app->share(function($app)
+		
+        $this->registerInstallCommand();
+        $this->registerAidkitHelper();
+        
+	}
+	/**
+	 * Register the aidkit:install Command.
+	 *
+	 * @return void
+	 */
+	protected function registerInstallCommand()
+	{
+		$this->app['aidkit.install'] = $this->app->share(function($app)
         {
             return new Commands\InstallCommand();
         });
-        
+
         $this->commands('aidkit.install');
+	}
+
+	/**
+	 * Register the AidkitHelper.
+	 *
+	 * @return void
+	 */
+	protected function registerAidkitHelper()
+	{
+		$this->app['aidkit'] = $this->app->share(function($app)
+		{
+			return new Aidkit();
+		});
 	}
 
 	/**
@@ -45,7 +70,7 @@ class AidkitServiceProvider extends ServiceProvider {
 	 */
 	public function provides()
 	{
-		return array();
+		return array('aidkit');
 	}
 
 }
