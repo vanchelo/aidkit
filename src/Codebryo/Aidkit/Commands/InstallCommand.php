@@ -43,15 +43,21 @@ class InstallCommand extends Command {
         if(File::exists(app_path().'/views_admin'))
             return $this->error('Aidkit seems to be installed already! Delete the /views_admin Folder to enable the Installation.');
 
+        // To prevent Errors create necessary Folders first
         $this->createFolders();
             $this->info('Basic Folder Structure has been created');
 
-        $this->createViews();
-            $this->info('Basic Views have been created');
+        // Next calls are logically ordered ( at least in my logid :P )
+
         $this->createControllers();
             $this->info('Basic Controllers have been created');
+
+        $this->createViews();
+            $this->info('Basic Views have been created');
+        
         $this->createRoutes();
             $this->info('New Administrative Routes have been created');
+
         $this->createSeed();
             $this->info('UserTableSeeder created');
 
@@ -64,6 +70,11 @@ class InstallCommand extends Command {
         return $this->info('Aidkit Installation complete!');
     }
 
+    /**
+     * Create the basic folter Structure.
+     *
+     * @return void
+     */
     protected function createFolders()
     {
         // Define all the Folders that should be created relative to the app_path();
@@ -85,37 +96,61 @@ class InstallCommand extends Command {
 
     }
 
+    /**
+     * Create a some Controllers.
+     *
+     * @return void
+     */
+    protected function createControllers()
+    {
+        $templatePath = static::$templatePath;
+
+        $controllers = array(
+            'AuthController',
+            'HomeController',
+            'UserController',
+        );
+
+        foreach($controllers as $controller)
+        {
+            File::put(app_path().'/controllers/Admin/'.$controller.'.php',File::get($templatePath.'/controllers/'.$controller.'.txt'));
+        }
+
+    }
+
+    /**
+     * Create the provided views.
+     *
+     * @return void
+     */
     protected function createViews()
     {
         $templatePath = static::$templatePath;
 
         $views = array(
-            'layout'                => 'layout/master',
-            'login'                 => 'layout/login',
-            'partials/navigation'   => 'layout/partials/navigation'
-            'dashboard'             => 'dashboard',
-            'js/delete'             => 'js-views/delete',
-            'users/index'           => 'users/index',
-            'users/show'           => 'users/show',
-            'users/edit'           => 'users/edit',
-            'users/create'           => 'users/create'
+            'layout/master',
+            'layout/login',              
+            'layout/partials/navigation',
+            'dashboard',
+            'errors/missing',
+            'js/delete',    
+            'users/index',
+            'users/show',       
+            'users/edit',        
+            'users/create',       
         );
 
-        File::put(app_path().'/views_admin/layout/master.blade.php',File::get($templatePath.'/views/layout.txt'));
-        File::put(app_path().'/views_admin/layout/login.blade.php',File::get($templatePath.'/views/login.txt'));
-        File::put(app_path().'/views_admin/layout/partials/navigation.blade.php',File::get($templatePath.'/views/partials/navigation.txt'));
-        File::put(app_path().'/views_admin/dashboard.blade.php',File::get($templatePath.'/views/dashboard.txt'));
-
-        File::put(app_path().'/views_admin/js-views/delete.blade.php',File::get($templatePath.'/views/js/delete.txt'));
-
-        // Create the User Views
-
-        File::put(app_path().'/views_admin/users/index.blade.php',File::get($templatePath.'/views/users/index.txt'));
-        File::put(app_path().'/views_admin/users/show.blade.php',File::get($templatePath.'/views/users/show.txt'));
-        File::put(app_path().'/views_admin/users/edit.blade.php',File::get($templatePath.'/views/users/edit.txt'));
-        File::put(app_path().'/views_admin/users/create.blade.php',File::get($templatePath.'/views/users/create.txt'));
+        foreach($views as $view)
+        {
+            File::put(app_path().'/views_admin/'.$$view.'.blade.php',File::get($templatePath.'/views/'.$view.'.txt'));
+        }
     }
 
+    /**
+     * Create the routes_admin.php File for clean Route structure.
+     *
+     * @return void
+     */
     protected function createRoutes()
     {
         $templatePath = static::$templatePath;
@@ -124,14 +159,11 @@ class InstallCommand extends Command {
 
     }
 
-    protected function createControllers()
-    {
-        $templatePath = static::$templatePath;
-        File::put(app_path().'/controllers/Admin/AuthController.php',File::get($templatePath.'/controllers/AuthController.txt'));
-        File::put(app_path().'/controllers/Admin/HomeController.php',File::get($templatePath.'/controllers/HomeController.txt'));
-        File::put(app_path().'/controllers/Admin/UserController.php',File::get($templatePath.'/controllers/UserController.txt'));
-    }
-
+    /**
+     * Create a basic Seed File for the Admin User.
+     *
+     * @return void
+     */
     protected function createSeed()
     {
         $templatePath = static::$templatePath;
