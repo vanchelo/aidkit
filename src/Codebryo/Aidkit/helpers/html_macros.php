@@ -39,7 +39,7 @@ function renderBaseTag()
 	return sprintf('<base href="%s">',$url);
 }
 
-function renderErrors(array $errors)
+function renderErrors($errors)
 {
 	$html = implode('', $errors->all('<li><i class="icon-remove"></i> :message</li>'));
 	$html = sprintf('<ul class="errors animated pulse">%s</ul>',$html);
