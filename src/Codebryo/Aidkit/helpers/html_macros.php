@@ -35,17 +35,14 @@ function renderNavigation(array $array)
 function renderBaseTag()
 {
 	$url =  url('/'.Config::get('aidkit::config.urlprefix'));
+	
 	return sprintf('<base href="%s">',$url);
 }
 
 function renderErrors(array $errors)
 {
-	$html = '';
-
-	if ($errors->any()):
-		$html = implode('', $errors->all('<li><i class="icon-remove"></i> :message</li>'));
-		$html = sprintf('<ul class="errors animated pulse">%s</ul>',$html);
-	endif;
+	$html = implode('', $errors->all('<li><i class="icon-remove"></i> :message</li>'));
+	$html = sprintf('<ul class="errors animated pulse">%s</ul>',$html);
 
 	return $html;
 }

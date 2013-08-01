@@ -50,7 +50,10 @@ class Aidkit {
 	 */
 	public function renderErrors()
 	{
-		return renderErrors($errors);
+		if($errors->any())
+			return renderErrors($errors);
+		else
+			return '';
 	}
 
 	/**
