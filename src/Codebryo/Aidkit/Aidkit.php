@@ -48,7 +48,7 @@ class Aidkit {
 	 * @param  array  $errors
 	 * @return string
 	 */
-	public function renderErrors()
+	public function renderErrors($errors)
 	{
 		if($errors->any())
 			return renderErrors($errors);
