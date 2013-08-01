@@ -20,8 +20,8 @@
 		<tbody>
 			@foreach($actions as $action)
 				<tr>
-					<td>{{ actionMessage($action) }}</td>
-					<td class="cling border">{{ $action->created_at }}</td>
+					<td>{{ Aidkit::composeActionMessage($action) }}</td>
+					<td class="cling border">{{ Aidkit::composeReadableTime($action->created_at) }}</td>
 				</tr>
 			@endforeach
 		</tbody>
@@ -29,4 +29,5 @@
 
 	@endunless
 	</div>
+	
 </div>

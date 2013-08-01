@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
 
-	{{ HTML::aidkitBaseTag() }}
+	{{ Aidkit::renderBaseTag() }}
+	
 	<meta charset="UTF-8">
 	<title>{{ $title }}</title>
 

@@ -17,7 +17,7 @@
     <fieldset>
         <legend>Details</legend>
 
-        {{ HTML::aidkitErrors($errors) }}
+        {{ Aidkit::renderErrors($errors) }}
 
         <div class="pure-u-1-2">
             {{ Form::label('name','name',array('class'=>'required'))}}

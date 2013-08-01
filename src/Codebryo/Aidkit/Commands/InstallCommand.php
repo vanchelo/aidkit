@@ -133,7 +133,7 @@ class InstallCommand extends Command {
             'layout/partials/navigation',
             'dashboard',
             'errors/missing',
-            'js/delete',    
+            'js-views/delete',    
             'users/index',
             'users/show',       
             'users/edit',        
