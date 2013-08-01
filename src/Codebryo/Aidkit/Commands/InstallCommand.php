@@ -41,10 +41,11 @@ class InstallCommand extends Command {
     public function fire()
     {
         if(File::exists(app_path().'/views_admin'))
-            return $this->error('Aidkit seems to be installed already!');
+            return $this->error('Aidkit seems to be installed already! Delete the /views_admin Folder to enable the Installation.');
 
         $this->createFolders();
             $this->info('Basic Folder Structure has been created');
+
         $this->createViews();
             $this->info('Basic Views have been created');
         $this->createControllers();
@@ -58,26 +59,48 @@ class InstallCommand extends Command {
         $this->call('config:publish',array('package'=>'codebryo/aidkit'));
         $this->call('asset:publish',array('package'=>'codebryo/aidkit'));
 
-        $this->call('dump-autoload');
+        $this->call('dump-autoload'); // Lets make Aidkit recognized by Laravel
 
         return $this->info('Aidkit Installation complete!');
     }
 
     protected function createFolders()
     {
-        // Create the admin_views Folder
-        File::makeDirectory(app_path().'/views_admin');
-        File::makeDirectory(app_path().'/views_admin/js-views');
-        File::makeDirectory(app_path().'/views_admin/layout');
-        File::makeDirectory(app_path().'/views_admin/layout/partials');
-        File::makeDirectory(app_path().'/views_admin/users');
+        // Define all the Folders that should be created relative to the app_path();
+        $folders = array(
+            'views_admin',
+            'views_admin/errors',
+            'views_admin/js-views',
+            'views_admin/layout',
+            'views_admin/layout/partials',
+            'views_admin/users',
 
-        File::makeDirectory(app_path().'/controllers/Admin');
+            'controllers/Admin'
+        );
+
+        foreach($folders as $folder)
+        {
+            File::makeDirectory(app_path().'/'.$folder);
+        }
+
     }
 
     protected function createViews()
     {
         $templatePath = static::$templatePath;
+
+        $views = array(
+            'layout'                => 'layout/master',
+            'login'                 => 'layout/login',
+            'partials/navigation'   => 'layout/partials/navigation'
+            'dashboard'             => 'dashboard',
+            'js/delete'             => 'js-views/delete',
+            'users/index'           => 'users/index',
+            'users/show'           => 'users/show',
+            'users/edit'           => 'users/edit',
+            'users/create'           => 'users/create'
+        );
+
         File::put(app_path().'/views_admin/layout/master.blade.php',File::get($templatePath.'/views/layout.txt'));
         File::put(app_path().'/views_admin/layout/login.blade.php',File::get($templatePath.'/views/login.txt'));
         File::put(app_path().'/views_admin/layout/partials/navigation.blade.php',File::get($templatePath.'/views/partials/navigation.txt'));
