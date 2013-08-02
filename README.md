@@ -9,6 +9,8 @@ http://codebryo.github.io/aidkit/img/screen1.png
 
 ## New Features
 
+- Missing Page - If you enter a wrong url or so you'll see a beautiful 404 Page (http://dribbble.com/shots/1180575-Aidkit-404-Page?list=following)[Preview]
+
 - Facade Support
 	- **Compose:**
 		- `Aidkit::composeActionMessage($actioon)` - Will return a well formatted string based on the Action provided
