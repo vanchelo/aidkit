@@ -142,7 +142,7 @@ class InstallCommand extends Command {
 
         foreach($views as $view)
         {
-            File::put(app_path().'/views_admin/'.$$view.'.blade.php',File::get($templatePath.'/views/'.$view.'.txt'));
+            File::put(app_path().'/views_admin/'.$view.'.blade.php',File::get($templatePath.'/views/'.$view.'.txt'));
         }
     }
 
