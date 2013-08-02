@@ -6,10 +6,4 @@ class Actionlog extends Eloquent {
 
 	protected $guarded = array();
 
-	protected $actions  = array(
-		'c' => 'created',
-		'd' => 'deleted',
-		'u' => 'updated'
-	);
-
 }

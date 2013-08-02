@@ -45,7 +45,7 @@ class AdminUserController extends AidkitController{
 		if(Input::get('email') != $user->email) $updateArray['email'] = Input::get('email');
 		if(Input::has('new_password')) $updateArray['password'] = Hash::make(Input::get('username'));
 
-		if ($user->update($updateArray)) return Redirect::routE('admin.users.show',$id);
+		if ($user->update($updateArray)) return Redirect::route('admin.users.show',$id);
 
 		return Redirect::back()->withInput()->withErrors($user->errors);
 	}

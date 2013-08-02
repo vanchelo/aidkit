@@ -1,0 +1,7 @@
+<nav id="main">
+	<ul>
+
+		{{ Aidkit::renderNavigation(Config::get('aidkit::navigation.navigation')) }}
+		
+	</ul>
+</nav>

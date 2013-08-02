@@ -23,22 +23,36 @@ class AidkitModel extends Eloquent {
 
         static::created(function($model)
         {
-            return Actionlog::create(array( 'user_id' => Auth::user()->id, 'action' => 'created','object' => get_class($model),'object_id' => $model->getKey(), 'created_at' => date('Y-m-d H:i:s') ));
+            return static::createActionlogEntry('created',$model);
         });
 
         static::updated(function($model)
         {
-            return Actionlog::create(array( 'user_id' => Auth::user()->id, 'action' => 'updated','object' => get_class($model),'object_id' => $model->getKey(), 'created_at' => date('Y-m-d H:i:s') ));
+            return static::createActionlogEntry('updated',$model);
         });
 
         static::deleted(function($model)
         {
-            return Actionlog::create(array( 'user_id' => Auth::user()->id, 'action' => 'deleted','object' => get_class($model),'object_id' => $model->getKey(), 'created_at' => date('Y-m-d H:i:s') ));
+            return static::createActionlogEntry('deleted',$model);
         });
 
     }
 
-    public function validate()
+    
+    protected static function createActionlogEntry($action, $model)
+    {
+        $actionlog = new Actionlog;
+
+        $actionlog->user_id = Auth::user()->id;
+        $actionlog->action = $action;
+        $actionlog->object = get_class($model);
+        $actionlog->object_id = $model->getKey();
+        $actionlog->created_at = $model->freshTimestamp();
+
+        return $actionlog->save();
+    }
+
+    protected function validate()
     {
         // Replace all the @id places with the actual ID of the user
         $rules = static::$rules;
@@ -58,5 +72,6 @@ class AidkitModel extends Eloquent {
 
     	return false;
     }
+
 
 }

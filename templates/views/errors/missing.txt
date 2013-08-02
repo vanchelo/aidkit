@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Oooooops...</title>
+
+	<style>
+
+	* {
+		padding: 0;
+		margin: 0;
+		box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+	}
+
+	body {
+		text-align: center;
+		padding: 5px;
+		background: #e2f7fa;
+		height: 100%;
+	}
+
+	.wrapper {
+		text-align: left;
+		position: relative;
+		display: inline-block;
+		width: 100%;
+		max-width: 1044px;
+		padding: 20px;
+		border: 1px solid rgba(0,0,0,0.2);
+		background: #fff;
+	}
+
+	.wrapper img {
+		float: left;
+		width: 100%;
+		border: 1px solid rgba(0,0,0,0.3);
+	}
+
+	.text {
+		position: absolute;
+		float: left;
+		background: #e2f7fa;
+		padding: 20px;
+		width: 100%;
+		max-width: 600px;
+		left: -1px;
+		top: -1px;
+		border-bottom: 1px solid rgba(0,0,0,0.2);
+		border-right: 1px solid rgba(0,0,0,0.2);
+	}
+
+	.wrapper:before, .wrapper:after
+	{
+		position: absolute;
+		width: 40%;
+		height: 10px;
+		content: ' ';
+		left: 12px;
+		bottom: 18px;
+		background: transparent;
+		-webkit-transform: skew(-5deg) rotate(-5deg);
+		-moz-transform: skew(-5deg) rotate(-5deg);
+		-ms-transform: skew(-5deg) rotate(-5deg);
+		-o-transform: skew(-5deg) rotate(-5deg);
+		transform: skew(-5deg) rotate(-5deg);
+		-webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+		-moz-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+		box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+		z-index: -1;
+	}
+	.wrapper:after
+	{
+		left: auto;
+		right: 12px;
+		-webkit-transform: skew(5deg) rotate(5deg);
+		-moz-transform: skew(5deg) rotate(5deg);
+		-ms-transform: skew(5deg) rotate(5deg);
+		-o-transform: skew(5deg) rotate(5deg);
+		transform: skew(5deg) rotate(5deg);
+	}
+
+	h1,h2 {
+		color: #9c9c9c;
+		font-family: sans-serif;
+		font-weight: 700;
+		display: inline-block;
+	}
+
+
+	p {
+		color: #9c9c9c;
+		font-family: sans-serif;
+		font-weight: normal;
+		line-height: 1.6em;
+		margin-top: 20px;
+	}
+
+	a {
+		background: #fa542e;
+		color: #fff;
+		text-decoration: none;
+		padding: 2px 4px;
+		transition: all 100ms;
+		-moz-transition: all 100ms;
+		-webkit-transition: all 100ms;
+		border-radius: 5px;
+	}
+
+	a:hover {
+		padding: 4px 4px;
+	}
+
+
+	</style>
+</head>
+<body>
+
+	<div class="wrapper">
+		{{ HTML::image('img/emma-stone.jpg')}}
+
+		<div class="text">
+			<h1>Seems like this page is missing.</h1>
+			<h2>I guess, it's our fault.</h2>
+
+			<p>Let this image of Emma Stone cheer you up. And feel freen to start your journey again from <a href="{ url('/') }">here</a> and hopefully you won't stumble over this page any time soon.</p>
+		</div>
+
+	</div>
+	</body>
+</html>
