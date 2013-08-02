@@ -54,7 +54,7 @@ View::share('title',Config::get('aidkit::config.title')); // $title will return 
 Route::group(array('prefix'=>Config::get('aidkit::config.urlprefix')),function(){
 
 	if(File::exists(app_path().'/routes_admin.php')) include app_path().'/routes_admin.php';
-	
+
 });
 
 /*
@@ -67,3 +67,15 @@ Route::filter('adminauth', function()
 {
 	if (Auth::guest()) return Redirect::guest(Config::get('aidkit::config.urlprefix').'/login');
 });
+
+/*
+ *
+ * Catch the Not found error for Admin Routes
+ *
+ */
+
+App::missing(function($exception)
+{
+	return View::make('admin::errors/missing');
+});
+
