@@ -118,7 +118,7 @@
 <body>
 
 	<div class="wrapper">
-		{{ HTML::image('emma-stone.jpg')}}
+		{{ HTML::image('img/emma-stone.jpg')}}
 
 		<div class="text">
 			<h1>Seems like this page is missing.</h1>
