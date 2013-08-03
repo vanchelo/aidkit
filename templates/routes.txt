@@ -27,8 +27,10 @@ Route::group(array('before'=>'adminauth'),function(){
 	Route::get('dashboard',array('as'=>'dashboard','uses'=>'AdminHomeController@showDashboard'));
 
 	// Aidkit provides all necessary Files for User CRUD out of the box
-
 	Route::resource('users', 'AdminUserController');
+
+    Route::get('restore/{model}/{id}','AidkitController@restore');
+    Route::get('delete/{model}/{id}','AidkitController@delete');
 
 	// Any Form Related routes should go in here
 	Route::group(array('before'=>'csrf'),function(){
