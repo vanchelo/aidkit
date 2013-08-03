@@ -13,14 +13,18 @@
 	<table>
 		<thead>
 			<tr>
-				<th>Action</th>
+				<th class="center"><i class="icon-asterisk"></i></th>
+				<th class="center"><i class="icon-quote-right"></i></th>
+				<th class="center"><i class="icon-user"></i></th>
 				<th class="center"><i class="icon-time"></i> - <i class="icon-calendar"></i></th>
 			</tr>
 		</thead>
 		<tbody>
 			@foreach($actions as $action)
 				<tr>
-					<td>{{ Aidkit::composeActionMessage($action) }}</td>
+					<td class="cling">{{ $action->action }}</td>
+					<td class="border">{{ Aidkit::composeActionMessage($action) }}</td>
+					<td class="cling border">{{User::find($action->user_id)->getUsername() }}</td>
 					<td class="cling border">{{ Aidkit::composeReadableTime($action->created_at) }}</td>
 				</tr>
 			@endforeach

@@ -1,0 +1,63 @@
+<?php
+
+/**
+ * Class AdminCoreController
+ *
+ * Helper class providing useful & general methods/actions usable throughout the whole application
+ *
+ */
+class AdminCoreController extends AidkitController
+{
+
+    public function getIndex()
+    {
+        return 'Nothing here for you to see ;) ';
+    }
+
+
+    /**
+     * restore an soft-deleted item.
+     *
+     * @param $model
+     * @param $id
+     *
+     * @return URL Redirect
+     */
+    public function getRestore( $model, $id )
+    {
+        $model = ucfirst($model);
+
+        $item = $model::onlyTrashed()->findOrFail($id);
+
+        if( null != $item )
+        {
+            $item->restore();
+        }
+
+        return Redirect::to( URL::previous() );
+    }
+
+
+    /**
+     * Deletes an item from it's table.
+     *
+     * @param $model
+     * @param $id
+     *
+     * @return URL Redirect
+     */
+    public function destroy( $model, $id )
+    {
+        $model = ucfirst($model);
+
+        if(strtoupper(Input::get('delete')) == 'DELETE')
+        {
+            $user = $model::findOrFail($id);
+            $user->delete();
+
+            //return Redirect::route('admin.users.index');
+        }
+
+        return Redirect::to( URL::previous() ,$id);
+    }
+}
