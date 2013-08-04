@@ -31,12 +31,14 @@ class ExtensionCommand extends Command {
     protected $description = 'Add additional features to Aidkit';
 
     protected static $extensionPath;
+    protected static $extensionName;
+    protected static $extensionUrl;
+    protected static $extensionFolder;
 
 
     /**
      * Create a new command instance.
      *
-     * @return void
      */
     public function __construct()
     {
@@ -45,6 +47,7 @@ class ExtensionCommand extends Command {
         static::$extensionPath = __DIR__.'/../../../../extensions';
     }
 
+
     /**
      * Execute the console command.
      *
@@ -52,72 +55,234 @@ class ExtensionCommand extends Command {
      */
     public function fire()
     {
-        $name = $this->argument('name');
+        $dependencyCheck = $this->dependencyCheck();
 
-        if ( $this->confirm("Are you sure you want to install Aidkit extension '".$name."'? [yes|no]", true))
+        if( true !== $dependencyCheck )
+        {
+            return $this->cancelInstallation();
+        }
+
+        static::$extensionName = $this->argument('name');
+
+        $extensionLookup = $this->extensionLookup();
+
+        if( true !== $extensionLookup )
+        {
+            return $this->cancelInstallation();
+        }
+
+        if ( $this->confirm("Are you sure you want to install Aidkit extension '".static::$extensionName."'? [yes|no]", true))
         {
             $mode = $this->option('mode', 'install');
 
             if( is_null($mode) || 'install' == $mode )
             {
-                return $this->installExtension( $name );
+                return $this->installExtension();
             }
-            else
-            {
-                return $this->updateExtension( $name );
-            }
+
+            return $this->updateExtension();
         }
 
-        return $this->info('Aidkit extension installation canceled!');
+        return $this->cancelInstallation();
     }
 
 
-    public function installExtension( $name )
+    protected function installExtension()
     {
-        if( File::exists( static::$extensionPath.'/'.$name) )
+        if( File::exists( static::$extensionPath.'/'.static::$extensionName) )
         {
-            if ( $this->confirm("Extension '".$name."' already exists, update instead? [yes|no]", true))
+            if ( $this->confirm("Extension '".static::$extensionName."' already exists, update instead? [yes|no]", true))
             {
-                return $this->updateExtension( $name );
+                return $this->updateExtension( static::$extensionName );
             }
+
+            return $this->cancelInstallation();
         }
 
         if( File::isWritable( static::$extensionPath ) ){
-            //get contents
-
             //on success create directory
-            File::makeDirectory( static::$extensionPath.'/'.$name);
+            File::makeDirectory( static::$extensionPath.'/'.static::$extensionName);
 
-            //move files to the directory
-
-            // run the commands from the installation file.
-
-            return $this->info( 'Aidkit installation in development');
-        }else{
-            return $this->info( 'Aidkit extensions path is not writable');
+            //get contents
+            return $this->getExtensionFromSource();
         }
+
+        return $this->error( 'Aidkit extensions path is not writable');
     }
 
 
-    public function updateExtension( $name )
+    protected function updateExtension()
     {
-        if ( $this->confirm("Updating an extension will override your own changes. Proceed? [yes|no]", true))
+        if ( $this->confirm("Updating an extension will override your own changes. Proceed? [yes|no]", true) )
         {
+            $this->info('Deleting : '.static::$extensionPath.'/'.static::$extensionName);
             // delete the folder within extension folder.
-            File::delete( static::$extensionPath.'/'.$name );
+            $this->info( File::deleteDirectory( static::$extensionPath.'/'.static::$extensionName ) );
 
             // jump back to installation
-            return $this->installExtension( $name );
+            return $this->installExtension();
         }
+
+        return $this->cancelInstallation();
     }
 
 
-    public function finishInstallation()
+    protected function finishInstallation()
     {
         $this->call('dump-autoload'); // Lets make Extension recognized by Laravel
 
         return $this->info('Aidkit extension installation complete!');
     }
+
+
+    protected function cancelInstallation()
+    {
+        return $this->info('Aidkit extension installation canceled!');
+    }
+
+
+    protected function getExtensionFromSource()
+    {
+        $userAgent = 'Googlebot/2.1 (http://www.googlebot.com/bot.html)';
+
+        $path_zip  = static::$extensionPath.'/'.static::$extensionName.'/';
+        $file_zip  = "extension.zip";
+
+        $fp = fopen($path_zip.$file_zip, "w");
+
+        // Curly curls!
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_USERAGENT, $userAgent);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_URL,static::$extensionUrl );
+        curl_setopt($ch, CURLOPT_FAILONERROR, true);
+        curl_setopt($ch, CURLOPT_HEADER,0);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($ch, CURLOPT_AUTOREFERER, true);
+        curl_setopt($ch, CURLOPT_BINARYTRANSFER,true);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+        curl_setopt($ch, CURLOPT_FILE, $fp);
+
+        $page = curl_exec($ch);
+
+        if (!$page){
+            $this->error("cURL error number:" .curl_errno($ch) );
+            $this->error("cURL error:" . curl_error($ch) );
+
+            return $this->cancelInstallation();
+        }
+
+        // Close cURL and archive
+        curl_close($ch);
+        fclose($fp);
+
+
+
+        $zip = new \ZipArchive;
+
+        if( true !== ( $err = $zip->open( $path_zip.$file_zip ) ) )
+        {
+            $this->error('Could not open ' . $path_zip.$file_zip );
+            $this->error('Error #' . $err);
+        }else
+        {
+            $this->info('File opened');
+        }
+
+        $this->info( 'StatusString: ' . $zip->getStatusString() );
+
+        if( !$zip->extractTo( $path_zip ) )
+        {
+            return $this->error('Extraction error');
+        }
+
+        $this->info( 'StatusString: ' . $zip->getStatusString() );
+
+        if(!$zip->close())
+        {
+            return $this->error('Error on close');
+        }
+
+        $this->info( 'Unzipped file to: ' . $path_zip );
+
+        File::delete( $path_zip.$file_zip );
+
+        return $this->installExtensionFiles();
+    }
+
+
+
+    protected function installExtensionFiles()
+    {
+        $extensionFolder  = static::$extensionPath.'/'.static::$extensionName.'/'.static::$extensionFolder;
+
+        if( File::isDirectory( $extensionFolder ) )
+        {
+            // move files to the directory
+            if( File::isDirectory( $extensionFolder.'/controllers' ) )
+            {
+                File::copyDirectory( $extensionFolder.'/controllers', app_path().'/controllers' );
+            }
+
+            if( File::isDirectory( $extensionFolder.'/models' ) )
+            {
+                File::copyDirectory( $extensionFolder.'/models', app_path().'/models' );
+            }
+
+            if( File::isDirectory( $extensionFolder.'/vievs' ) )
+            {
+                File::copyDirectory( $extensionFolder.'/vievs', app_path().'/vievs_admin' );
+            }
+
+            if( File::isDirectory( $extensionFolder.'/database' ) )
+            {
+                File::copyDirectory( $extensionFolder.'/databases', app_path().'/database' );
+            }
+
+            // run the commands from the installation file.
+
+            return $this->info( 'Aidkit installation in development');
+        }
+
+        return $this->cancelInstallation();
+    }
+
+
+    protected function dependencyCheck()
+    {
+        $pass = true;
+        if( !extension_loaded('zip') )
+        {
+            $this->error('php zip extension needs to be install');
+            $pass = false;
+        }
+
+        // ZipArchive not found
+        if( !class_exists('ZipArchive') )
+        {
+            $this->error('Class "ZipArchive" not found');
+            $pass = false;
+        }
+
+        return $pass;
+    }
+
+
+    protected function extensionLookup()
+    {
+        $extensions = require_once( static::$extensionPath.'/extensions.php' );
+
+        if( array_key_exists( static::$extensionName, $extensions ) )
+        {
+            static::$extensionUrl    = $extensions[ static::$extensionName ]['location'];
+            static::$extensionFolder = $extensions[ static::$extensionName ]['zipfolder'];
+
+            return true;
+        }
+
+        return false;
+    }
+
 
     /**
      * Get the console command arguments.
@@ -130,6 +295,7 @@ class ExtensionCommand extends Command {
             array('name', InputArgument::REQUIRED, 'Name of the desired extension'),
         );
     }
+
 
     /**
      * Get the console command options.
