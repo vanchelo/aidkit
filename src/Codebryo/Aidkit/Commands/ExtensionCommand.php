@@ -71,10 +71,16 @@ class ExtensionCommand extends Command {
             return $this->cancelInstallation();
         }
 
+
+        $mode = $this->option('mode', 'install');
+
+        if( !is_null($mode) && 'deploy' == $mode )
+        {
+            return $this->deployExtension();
+        }
+
         if ( $this->confirm("Are you sure you want to install Aidkit extension '".static::$extensionName."'? [yes|no]", true))
         {
-            $mode = $this->option('mode', 'install');
-
             if( is_null($mode) || 'install' == $mode )
             {
                 return $this->installExtension();
@@ -127,6 +133,12 @@ class ExtensionCommand extends Command {
     }
 
 
+    protected function deployExtension()
+    {
+        return $this->installExtensionFiles();
+    }
+
+
     protected function finishInstallation()
     {
         $this->call('dump-autoload'); // Lets make Extension recognized by Laravel
@@ -176,8 +188,6 @@ class ExtensionCommand extends Command {
         curl_close($ch);
         fclose($fp);
 
-
-
         $zip = new \ZipArchive;
 
         if( true !== ( $err = $zip->open( $path_zip.$file_zip ) ) )
@@ -222,26 +232,36 @@ class ExtensionCommand extends Command {
             if( File::isDirectory( $extensionFolder.'/controllers' ) )
             {
                 File::copyDirectory( $extensionFolder.'/controllers', app_path().'/controllers' );
+                $this->info('Controllers have been created');
             }
 
             if( File::isDirectory( $extensionFolder.'/models' ) )
             {
                 File::copyDirectory( $extensionFolder.'/models', app_path().'/models' );
+                $this->info('Models have been created');
             }
 
-            if( File::isDirectory( $extensionFolder.'/vievs' ) )
+            if( File::isDirectory( $extensionFolder.'/views' ) )
             {
-                File::copyDirectory( $extensionFolder.'/vievs', app_path().'/vievs_admin' );
+                File::copyDirectory( $extensionFolder.'/views', app_path().'/views_admin' );
+                $this->info('Views have been created');
             }
 
             if( File::isDirectory( $extensionFolder.'/database' ) )
             {
                 File::copyDirectory( $extensionFolder.'/databases', app_path().'/database' );
+                $this->info('Database files have been created ( migrations/seeds )');
             }
 
-            // run the commands from the installation file.
+            if( File::isDirectory( $extensionFolder.'/public' ) )
+            {
+                File::copyDirectory( $extensionFolder.'/public', public_path().'/packages/codebryo/aidkit' );
+                $this->info('Published public files into "packages/codebryo/aidkit" ');
+            }
 
-            return $this->info( 'Aidkit installation in development');
+
+            // run the commands from the installation file.
+            return $this->finishInstallation();
         }
 
         return $this->cancelInstallation();
