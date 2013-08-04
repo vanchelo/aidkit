@@ -10,7 +10,7 @@ use \File;
 /**
  * Class ExtensionCommand
  *
- * For reference : http://net.tutsplus.com/tutorials/php/your-one-stop-guide-to-laravel-commands/
+ * For development help : http://net.tutsplus.com/tutorials/php/your-one-stop-guide-to-laravel-commands/
  *
  * @package Codebryo\Aidkit\Commands
  */
@@ -28,11 +28,34 @@ class ExtensionCommand extends Command {
      *
      * @var string
      */
-    protected $description = 'Add additional features to Aidkit';
+    protected $description = 'Install/Manage additional extensions into Aidkit';
 
+    /**
+     * The Path where the extension core is installed.
+     *
+     * @var string
+     */
     protected static $extensionPath;
+
+    /**
+     * The name of the extension
+     *
+     * @var string
+     */
     protected static $extensionName;
+
+    /**
+     * The URL where the extension can be found.
+     *
+     * @var string
+     */
     protected static $extensionUrl;
+
+    /**
+     * The extension folder should be something like Packagename-master.
+     *
+     * @var string
+     */
     protected static $extensionFolder;
 
 
@@ -55,24 +78,17 @@ class ExtensionCommand extends Command {
      */
     public function fire()
     {
-        $dependencyCheck = $this->dependencyCheck();
-
-        if( true !== $dependencyCheck )
-        {
-            return $this->cancelInstallation();
-        }
-
         static::$extensionName = $this->argument('name');
+        $mode                  = $this->option('mode', 'install');
 
-        $extensionLookup = $this->extensionLookup();
+        $dependencyCheck = $this->dependencyCheck();
+        $permissionCheck = $this->permissionCheck();
+        $extensionLookup = $this->extensionCheck();
 
-        if( true !== $extensionLookup )
+        if( true !== $dependencyCheck || true !== $permissionCheck || true !== $extensionLookup )
         {
             return $this->cancelInstallation();
         }
-
-
-        $mode = $this->option('mode', 'install');
 
         if( !is_null($mode) && 'deploy' == $mode )
         {
@@ -93,6 +109,17 @@ class ExtensionCommand extends Command {
     }
 
 
+    /**
+     * Install the extension.
+     *
+     * Run checks :
+     *      - Check if extension is already installed -> go to updateExtension()
+     *      - Check if the directory is writable      -> error
+     *
+     * Continue to getExtensionFromSource()
+     *
+     * @return void;
+     */
     protected function installExtension()
     {
         if( File::exists( static::$extensionPath.'/'.static::$extensionName) )
@@ -105,18 +132,19 @@ class ExtensionCommand extends Command {
             return $this->cancelInstallation();
         }
 
-        if( File::isWritable( static::$extensionPath ) ){
-            //on success create directory
-            File::makeDirectory( static::$extensionPath.'/'.static::$extensionName);
+        File::makeDirectory( static::$extensionPath.'/'.static::$extensionName);
 
-            //get contents
-            return $this->getExtensionFromSource();
-        }
-
-        return $this->error( 'Aidkit extensions path is not writable');
+        //get contents
+        return $this->getExtensionFromSource();
     }
 
 
+    /**
+     * Update extension
+     * Basically check if user want's to reinstall the extension.
+     *
+     * @return void;
+     */
     protected function updateExtension()
     {
         if ( $this->confirm("Updating an extension will override your own changes. Proceed? [yes|no]", true) )
@@ -133,26 +161,51 @@ class ExtensionCommand extends Command {
     }
 
 
+    /**
+     * Deploy an extension.
+     * Useful for developers.
+     *
+     * This method assumes that the extension is already installed in the appropriate folder. so it doe not download any code.
+     * This does the same as install/update without the checks.
+     *
+     * @return void;
+     */
     protected function deployExtension()
     {
         return $this->installExtensionFiles();
     }
 
 
+    /**
+     * Message thrown at the end of the installation
+     *
+     * @return void;
+     */
     protected function finishInstallation()
     {
         $this->call('dump-autoload'); // Lets make Extension recognized by Laravel
 
-        return $this->info('Aidkit extension installation complete!');
+        return $this->info('Installation of Aidkit extension: "'.static::$extensionName.'" has been completed successfully!');
     }
 
 
+    /**
+     * Message thrown it installation get cancelled.
+     *
+     * @return void;
+     */
     protected function cancelInstallation()
     {
-        return $this->info('Aidkit extension installation canceled!');
+        return $this->info('Installation of Aidkit extension: "'.static::$extensionName.'" has been canceled!');
     }
 
 
+    /**
+     * Try to fetch the package from the provided URL.
+     * Place the file in the extension folder. Unzip it and remove the zipfile
+     *
+     * @return void;
+     */
     protected function getExtensionFromSource()
     {
         $userAgent = 'Googlebot/2.1 (http://www.googlebot.com/bot.html)';
@@ -221,7 +274,12 @@ class ExtensionCommand extends Command {
     }
 
 
-
+    /**
+     * All files should be in place. Installation process will start now.
+     * The files will be copied to their assigned folders.
+     *
+     * @return void;
+     */
     protected function installExtensionFiles()
     {
         $extensionFolder  = static::$extensionPath.'/'.static::$extensionName.'/'.static::$extensionFolder;
@@ -268,6 +326,11 @@ class ExtensionCommand extends Command {
     }
 
 
+    /**
+     * Check if all required PHP-extensions are installed on the server
+     *
+     * @return bool
+     */
     protected function dependencyCheck()
     {
         $pass = true;
@@ -288,19 +351,43 @@ class ExtensionCommand extends Command {
     }
 
 
-    protected function extensionLookup()
+    /**
+     * Check if the extensions directory is accessible to Laravel
+     *
+     * @return bool
+     */
+    protected function permissionCheck()
+    {
+        $pass = true;
+
+        if( !File::isWritable( static::$extensionPath ) ){
+            $this->error( 'Aidkit extensions path is not writable');
+            $pass = false;
+        }
+
+        return $pass;
+    }
+
+
+    /**
+     * Find the extension in the repository and set related parameters
+     *
+     * @return bool
+     */
+    protected function extensionCheck()
     {
         $extensions = require_once( static::$extensionPath.'/extensions.php' );
 
-        if( array_key_exists( static::$extensionName, $extensions ) )
+        if( !array_key_exists( static::$extensionName, $extensions ) )
         {
-            static::$extensionUrl    = $extensions[ static::$extensionName ]['location'];
-            static::$extensionFolder = $extensions[ static::$extensionName ]['zipfolder'];
-
-            return true;
+            $this->error( 'There is no such extension available for Aidkit' );
+            return false;
         }
 
-        return false;
+        static::$extensionUrl    = $extensions[ static::$extensionName ]['location'];
+        static::$extensionFolder = $extensions[ static::$extensionName ]['zipfolder'];
+
+        return true;
     }
 
 
