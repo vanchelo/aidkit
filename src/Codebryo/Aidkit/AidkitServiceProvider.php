@@ -32,9 +32,12 @@ class AidkitServiceProvider extends ServiceProvider {
 	{
 		
         $this->registerInstallCommand();
+        $this->registerExtensionCommand();
         $this->registerAidkitHelper();
         
 	}
+
+
 	/**
 	 * Register the aidkit:install Command.
 	 *
@@ -48,6 +51,21 @@ class AidkitServiceProvider extends ServiceProvider {
         });
 
         $this->commands('aidkit.install');
+	}
+
+	/**
+	 * Register the aidkit:extension Command.
+	 *
+	 * @return void
+	 */
+	protected function registerExtensionCommand()
+	{
+		$this->app['aidkit.extension'] = $this->app->share(function($app)
+        {
+            return new Commands\ExtensionCommand();
+        });
+
+        $this->commands('aidkit.extension');
 	}
 
 	/**
