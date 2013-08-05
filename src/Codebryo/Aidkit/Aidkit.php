@@ -6,17 +6,19 @@ class Aidkit {
     {
         include 'helpers/readable_time.php'; // provides new function
         include 'helpers/html_macros.php'; // provides new functions
+        include 'helpers/compose_macros.php'; // provides new functions
     }
 
-	/**
-	 * Generate a Readable Actionlog Message
-	 *
-	 * @param  object  $object
-	 * @return string
-	 */
-	public function composeActionMessage($object)
+
+    /**
+     * Generate a Readable Actionlog Message
+     *
+     * @param object $object
+     * @return string
+     */
+    public function composeActionMessage( $object )
 	{
-		return 'Readable Action Message!';
+        return composeActionMessage( $object );
 	}
 
 	/**

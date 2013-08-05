@@ -63,5 +63,4 @@ class AdminUserController extends AidkitController{
 		}
 		
 	}
-	
 }

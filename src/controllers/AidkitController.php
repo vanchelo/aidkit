@@ -21,6 +21,50 @@ class AidkitController extends Controller {
 
 		// Provide the Layoutview depending on the Config Value
 		$this->layout = View::make('admin::'.Config::get('aidkit::config.layout'));
-
 	}
+
+
+    /**
+     * restore an soft-deleted item.
+     *
+     * @param $model
+     * @param $id
+     *
+     * @return URL Redirect
+     */
+    public function restore( $model, $id )
+    {
+        $model = ucfirst($model);
+
+        $item = $model::onlyTrashed()->findOrFail($id);
+
+        if( null != $item )
+        {
+            $item->restore();
+        }
+
+        return Redirect::to( URL::previous() );
+    }
+
+
+    /**
+     * Deletes an item from it's table.
+     *
+     * @param $model
+     * @param $id
+     *
+     * @return URL Redirect
+     */
+    public function delete( $model, $id )
+    {
+        $model = ucfirst($model);
+
+        if(strtoupper(Input::get('delete')) == 'DELETE')
+        {
+            $user = $model::findOrFail($id);
+            $user->delete();
+        }
+
+        return Redirect::to( URL::previous() );
+    }
 }
