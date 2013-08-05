@@ -6,6 +6,7 @@ class Aidkit {
     {
         include 'helpers/readable_time.php'; // provides new function
         include 'helpers/html_macros.php'; // provides new functions
+        include 'helpers/compose_macros.php'; // provides new functions
     }
 
 
@@ -17,7 +18,7 @@ class Aidkit {
      */
     public function composeActionMessage( $object )
 	{
-        return renderActionMessage( $object );
+        return composeActionMessage( $object );
 	}
 
 	/**

@@ -57,28 +57,3 @@ if ( !function_exists('renderErrors') )
         return $html;
     }
 }
-
-
-if ( !function_exists('renderActionMessage') )
-{
-    function renderActionMessage($object)
-    {
-        if( is_object($object) )
-        {
-            $model = ucfirst($object->object );
-
-            if( class_exists($model) )
-            {
-                $item = $model::withTrashed()->select( $model::$handlerField.' AS name' )->whereId( $object->object_id )->first();
-                $handler = ( is_null( $model::$handler ) ? $model : $model::$handler );
-
-                if( !is_null( $item ) )
-                {
-                    return sprintf( '%s in %s', $item->name, $handler );
-                }
-            }
-        }
-
-        return '';
-    }
-}

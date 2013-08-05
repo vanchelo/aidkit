@@ -16,7 +16,7 @@ class AidkitModel extends Eloquent {
      *
      *
      */
-    public static $handler = null;
+    public static $actionlogObjectName = null;
 
 
     /**
@@ -25,7 +25,7 @@ class AidkitModel extends Eloquent {
      *
      *
      */
-    public static $handlerField = 'id';
+    public static $actionlogField = 'id';
 
 
     public static function boot()
