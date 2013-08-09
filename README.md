@@ -13,7 +13,7 @@ http://codebryo.github.io/aidkit/img/screen1.png
 
 - Facade Support
 	- **Compose:**
-		- `Aidkit::composeActionMessage($actioon)` - Will return a well formatted string based on the Action provided
+		- `Aidkit::composeActionMessage($action)` - Will return a well formatted string based on the Action provided
 		- `Aidkit::composeReadableTime($timestamp)` - Will create easy to read times out of PHP or UNIX Timestamps (i.e. 2013-07-18 09:31:21 => Thursday at 9:31 am ) 
 	- **Render:**
 		- `Aidkit::renderBaseTag()` - Generates the HTML5 Base tag including the Value for the Backend defined in the Configfile

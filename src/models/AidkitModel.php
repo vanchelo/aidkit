@@ -9,7 +9,26 @@ class AidkitModel extends Eloquent {
 	 */
 	public $errors;
 
-	public static function boot()
+
+    /**
+     *
+     * Public Handler
+     *
+     *
+     */
+    public static $actionlogObjectName = null;
+
+
+    /**
+     *
+     * Public Handler
+     *
+     *
+     */
+    public static $actionlogField = 'id';
+
+
+    public static function boot()
     {
         parent::boot();
 
@@ -36,6 +55,10 @@ class AidkitModel extends Eloquent {
             return static::createActionlogEntry('deleted',$model);
         });
 
+        static::restored(function($model)
+        {
+            return static::createActionlogEntry('restored',$model);
+        });
     }
 
     
@@ -51,6 +74,7 @@ class AidkitModel extends Eloquent {
 
         return $actionlog->save();
     }
+
 
     protected function validate()
     {
@@ -72,6 +96,4 @@ class AidkitModel extends Eloquent {
 
     	return false;
     }
-
-
 }

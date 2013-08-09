@@ -6,4 +6,9 @@ class Actionlog extends Eloquent {
 
 	protected $guarded = array();
 
+
+    public static function readableActions()
+    {
+        return self::where('user_id',Auth::user()->id)->orderBy('created_at','desc')->take(10)->get();
+    }
 }
