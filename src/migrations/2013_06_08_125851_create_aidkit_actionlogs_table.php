@@ -14,7 +14,7 @@ class CreateAidkitActionlogsTable extends Migration {
 		Schema::create('actionlogs', function($table)
 		{
 		    $table->increments('id');
-		    $table->integer('user_id');
+		    $table->integer('admin_id');
 		    $table->string('action');
 		    $table->string('object');
 		    $table->integer('object_id');
