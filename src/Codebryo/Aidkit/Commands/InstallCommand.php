@@ -52,6 +52,9 @@ class InstallCommand extends Command {
         $this->createControllers();
             $this->info('Basic Controllers have been created');
 
+        this->createModels();
+            $this->info('Basic Models have been created');
+
         $this->createViews();
             $this->info('Basic Views have been created');
         
@@ -86,7 +89,9 @@ class InstallCommand extends Command {
             'views_admin/layout/partials',
             'views_admin/users',
 
-            'controllers/Admin'
+            'Admin',
+            'Admin/controllers',
+            'Admin/models'
         );
 
         foreach($folders as $folder)
@@ -108,12 +113,32 @@ class InstallCommand extends Command {
         $controllers = array(
             'AuthController',
             'HomeController',
-            'UserController',
+            'UsersController',
         );
 
         foreach($controllers as $controller)
         {
-            File::put(app_path().'/controllers/Admin/'.$controller.'.php',File::get($templatePath.'/controllers/'.$controller.'.txt'));
+            File::put(app_path().'/Admin/controllers/Admin'.$controller.'.php',File::get($templatePath.'/controllers/'.$controller.'.txt'));
+        }
+
+    }
+
+     /**
+     * Create a some Models.
+     *
+     * @return void
+     */
+    protected function createModels()
+    {
+        $templatePath = static::$templatePath;
+
+        $models = array(
+            'Admin'
+        );
+
+        foreach($models as $model)
+        {
+            File::put(app_path().'/Admin/models/'.$model.'.php',File::get($templatePath.'/models/'.$model.'.txt'));
         }
 
     }
