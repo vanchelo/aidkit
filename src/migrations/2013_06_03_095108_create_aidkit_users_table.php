@@ -11,7 +11,7 @@ class CreateAidkitUsersTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('users', function($table)
+		Schema::create('admins', function($table)
 		{
 		    $table->increments('id');
 		    $table->string('name');
@@ -31,7 +31,7 @@ class CreateAidkitUsersTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::dropIfExists('users');
+		Schema::dropIfExists('admins');
 	}
 
 }
