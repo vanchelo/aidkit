@@ -9,6 +9,14 @@ if ( !function_exists('renderNavigation') )
 
         foreach ( $array as $item=>$attributes){
 
+            if(array_get($attributes,'role')) 
+            {
+                if( ! Auth::user()->hasAccessTo($attributes['role']))
+                {
+                    continue;
+                }
+            }
+
             // Set the title of the navigation point
             $title = (isset($attributes['title']) ? $attributes['title'] : $item );
 
