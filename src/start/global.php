@@ -53,6 +53,9 @@ View::share('title',Config::get('aidkit::config.title')); // $title will return 
 
 Route::group(array('prefix'=>Config::get('aidkit::config.urlprefix')),function(){
 
+	Config::set('auth.model', Config::get('aidkit::auth.model'));
+    Config::set('auth.table', Config::get('aidkit::auth.table'));
+
 	if(File::exists(app_path().'/routes_admin.php')) include app_path().'/routes_admin.php';
 
 });
@@ -65,7 +68,7 @@ Route::group(array('prefix'=>Config::get('aidkit::config.urlprefix')),function()
 
 Route::filter('adminauth', function()
 {
-	if (Auth::guest()) return Redirect::guest(Config::get('aidkit::config.urlprefix').'/login');
+	if (Auth::guest() || get_class(Auth::user()) != 'Admin') return Redirect::guest(Config::get('aidkit::config.urlprefix').'/login');
 });
 
 /*

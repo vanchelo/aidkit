@@ -1,6 +1,6 @@
 <?php
 
-class AdminUserController extends AidkitController{
+class AdminUsersController extends AidkitController{
 
 	public function index()
 	{
