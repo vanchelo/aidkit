@@ -69,7 +69,16 @@ class Aidkit {
 		return renderNavigation($navigation);
 	}
 
-
-	
+	/**
+	 * Render Radiobuttons for configured roles
+	 *
+	 * @param  array  $navigation
+	 * @param  int $currentRole
+	 * @return string
+	 */
+	public function renderRoleSelection(array $roles,$currentRole = 0)
+	{
+		return renderRoleSelection($roles,$currentRole);
+	}
 
 }
