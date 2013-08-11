@@ -1,0 +1,73 @@
+<?php 
+
+use Illuminate\Auth\UserInterface;
+
+class Admin extends AidkitModel implements UserInterface {
+
+	// What properties shall be guarded
+	protected $guarded = array();
+
+	// Name of the table
+	protected $table = 'admins';
+
+	// Admins will be softDeleted by default
+	protected $softDelete = true;
+
+	// How should the Actionlog name this Object
+	public static $actionlogObjectName = 'Administrator';
+
+	// Set a different Field to be usef for readable Messages
+	public static $actionlogField = 'username';
+
+	// Define some basic rules
+	public static $rules = array(
+		'username' 	=> 'required|alpha_num|unique:admins,username,@id',
+		'name'		=> 'required',
+		'email'		=> 'required|email|unique:admins,email,@id',
+		'password'	=> 'required'
+	);
+
+	// Hash the password
+	public function setPassword($password)
+	{
+		$this->attributes['password'] = Hash::make($password);
+	}
+
+	// return the Username
+	public function getUsername()
+	{
+		return $this->username;
+	}
+
+	// check if the Userrole is allowed to access
+	public function hasAccessTo($role)
+	{
+		if($this->role <= $role)
+			return true;
+		else
+			return false;
+	}
+
+	/**
+	 * Get the unique identifier for the user.
+	 *
+	 * @return mixed
+	 */
+	public function getAuthIdentifier()
+	{
+		return $this->getKey();
+	}
+
+	/**
+	 * Get the password for the user.
+	 *
+	 * @return string
+	 */
+	public function getAuthPassword()
+	{
+		return $this->password;
+	}
+
+
+
+}

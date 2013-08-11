@@ -1,0 +1,14 @@
+<header>
+    <h1>User: {{ $admin->name }}</h1> 
+    <nav id="actions">
+		<ul>
+			<li><a href="{{ URL::route('admin.admins.edit',$admin->id) }}" class="pure-button-green"><i class="icon-edit"></i> Edit</a></li>
+			<li><a href="{{ URL::route('admin.admins.destroy',$admin->id) }}" class="pure-button-red js-remove"><i class="icon-remove"></i> Delete</a></li>
+		</ul>
+	</nav>
+</header>
+<div class="body">
+    <div class="pure-u-1">
+    	<p class="empty">Details follow</p>
+    </div>
+</div>

@@ -1,0 +1,53 @@
+<header>
+	<h1>Administrators</h1>
+
+	<nav id="actions">
+		<ul>
+			<li><a href="{{ route('admin.admins.create') }}" class="pure-button-green"><i class="icon-plus"></i> New Administrator</a></li>
+		</ul>
+	</nav>
+
+</header>
+<div class="body">
+	<div class="pure-u-1">
+	<h2><i class="icon-user"></i>List of Administrators</h2>
+	<p class="note">
+	A list of all available admins for this site can be found here.
+	Only SuperAdministrators can create/update/delete administrators.
+	</p>
+
+@unless($admins)
+	<p class="empty">Empty</p>
+@else
+		<table>
+			<thead>
+				<tr>
+					<th>username</th>
+					<th>name</th>
+					<th>email</th>
+					<th>last login</th>
+					<th class="center">role</th>
+					<th class="center">actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach($admins as $admin)
+					<tr>
+						<td>{{ $admin->username }}</td>
+						<td>{{ $admin->name }}</td>
+						<td>{{ HTML::mailto($admin->email) }}</td>
+						<td>{{ Aidkit::composeReadableTime($admin->last_login)}}</td>
+						<td class="cling">{{ ( $admin->role == 1 ? '<i class="icon-check"></i>' : '<i class="icon-check-empty"></i>') }}</td>
+						<td class="cling actions">
+							<a href="{{ URL::route('admin.admins.show',$admin->id) }}" class="pure-button-blue"><i class="icon-eye-open"></i></a>
+							<a href="{{ URL::route('admin.admins.edit',$admin->id) }}" class="pure-button-green"><i class="icon-edit"></i></a>
+						</td>
+					</tr>
+				@endforeach
+			</tbody>
+		</table>
+
+		{{ $admins->links() }}
+@endunless
+	</div>
+</div>
