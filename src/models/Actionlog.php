@@ -6,9 +6,13 @@ class Actionlog extends Eloquent {
 
 	protected $guarded = array();
 
+	public function admin()
+	{
+		return $this->belongsTo('Admin');
+	}
 
-    public static function readableActions()
+    public static function getRecentUserActions($adminID)
     {
-        return self::where('user_id',Auth::user()->id)->orderBy('created_at','desc')->take(10)->get();
+        return self::where('admin_id',$adminID)->orderBy('created_at','desc')->with('admin')->take(10)->get();
     }
 }
