@@ -52,7 +52,7 @@ class InstallCommand extends Command {
         $this->createControllers();
             $this->info('Basic Controllers have been created');
 
-        this->createModels();
+        $this->createModels();
             $this->info('Basic Models have been created');
 
         $this->createViews();
