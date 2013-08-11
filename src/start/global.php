@@ -82,3 +82,19 @@ App::missing(function($exception)
 	return View::make('admin::errors/missing');
 });
 
+/*
+ *
+ * Listen To certain Events throught Aidkit
+ *
+ */
+
+Event::listen('admin.login', function($admin)
+{
+	$admin->lockEvents = true;
+
+    $admin->last_login = $admin->freshTimestamp();
+
+    $admin->save();
+
+});
+

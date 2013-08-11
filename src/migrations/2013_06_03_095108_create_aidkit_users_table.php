@@ -19,6 +19,7 @@ class CreateAidkitUsersTable extends Migration {
 		    $table->string('password',62);
 		    $table->string('email')->unique()->nullable()->default(null);
 		    $table->integer('role')->nullable()->default(null);
+		    $table->datetime('last_login')->nullable()->default(null);
 		    $table->softDeletes();
 		    $table->timestamps();
 		});
