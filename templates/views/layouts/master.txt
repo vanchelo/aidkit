@@ -21,7 +21,7 @@
 			<ul>
 				<li>Hello, {{ Auth::user()->username }}</li>
 				<li><a href="{{ URL::route('aidkit.medics.edit', Auth::user()->id) }}">Edit Profile</a></li>
-				<li><a href="{{ URL::to('admin/logout') }}">Logout</a></li>
+				<li><a href="{{ URL::to('aidkit/logout') }}">Logout</a></li>
 			</ul>
 		</nav>
 	</header>
