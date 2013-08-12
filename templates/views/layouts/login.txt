@@ -17,7 +17,7 @@
 			
 			{{ Form::open(array('url'=> Config::get('aidkit::config.urlprefix').'/login','class'=>'pure-form pure-form-stacked')) }}
 
-				<legend>{{ $title }}</legend>
+				<legend><i class="icon-medkit"></i>{{ $title }} Login</legend>
 				
 				<fieldset>
 

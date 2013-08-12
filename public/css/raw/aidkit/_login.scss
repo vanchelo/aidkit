@@ -1,0 +1,17 @@
+#login {
+	margin-top: 30px;
+	padding: 5px 20px;
+	background: $content-bg;
+	border-top: 5px solid #fa542e;
+	text-align: left;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, .3);
+
+	button {
+		margin-top: 5px;
+		width: 100%;
+	}
+
+	i {
+		margin-right: 4px;
+	}
+}
