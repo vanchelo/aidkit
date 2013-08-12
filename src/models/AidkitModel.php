@@ -2,28 +2,30 @@
 
 class AidkitModel extends Eloquent {
 
-	/*
+	/**
 	 *
 	 * Store Error Messages in here
 	 *
+     * @var array
+     *
 	 */
 	public $errors;
 
 
     /**
      *
-     * Public Handler
+     * Optional to provide a name for the current Class Object used by the Actionlog
      *
-     *
+     * @var string
      */
     public static $actionlogObjectName = null;
 
 
     /**
      *
-     * Public Handler
+     * What Column should be used for composing Actionlog messages
      *
-     *
+     * @var string
      */
     public static $actionlogField = 'id';
 
@@ -36,7 +38,6 @@ class AidkitModel extends Eloquent {
 
         // Setup event bindings...
 
-        // Listen to the Saving Event
         static::saving(function($model)
     	{
     		return $model->validate();	
@@ -63,12 +64,21 @@ class AidkitModel extends Eloquent {
         });
     }
 
+    /**
+     * Check if special Events on the Model should be exectured or not
+     *
+     * @return bool
+     */
     public function eventsLocked()
     {
         return $this->lockEvents;
     }
 
-    
+    /**
+     * Create a actionlog entry
+     *
+     * @return mixed
+     */
     protected static function createActionlogEntry($action, $model)
     {
         if($model->eventsLocked() == true) return false;
