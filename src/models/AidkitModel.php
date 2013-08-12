@@ -63,7 +63,7 @@ class AidkitModel extends Eloquent {
         });
     }
 
-    public function isLocked()
+    public function eventsLocked()
     {
         return $this->lockEvents;
     }
@@ -71,7 +71,7 @@ class AidkitModel extends Eloquent {
     
     protected static function createActionlogEntry($action, $model)
     {
-        if($model->isLocked() == true) return false;
+        if($model->eventsLocked() == true) return false;
 
         $actionlog = new Actionlog;
 
@@ -87,6 +87,8 @@ class AidkitModel extends Eloquent {
 
     protected function validate()
     {
+        if($this->eventsLocked() == true) return true;
+
         // Replace all the @id places with the actual ID of the user
         $rules = static::$rules;
 
