@@ -11,12 +11,12 @@ class AidkitMedicsController extends AidkitController{
 	public function index()
 	{
 		$medics = Medic::paginate(15);
-		$this->layout->content = View::make('aidkit::ressources.medics.index',compact('medics'));
+		$this->layout->content = View::make('aidkit::resources.medics.index',compact('medics'));
 	}
 
 	public function create()
 	{
-		$this->layout->content = View::make('aidkit::ressources.medics.create');
+		$this->layout->content = View::make('aidkit::resources.medics.create');
 	}
 
 	public function store()
@@ -33,13 +33,13 @@ class AidkitMedicsController extends AidkitController{
 	public function show($id)
 	{
 		$medic = Medic::findOrFail($id);
-		$this->layout->content = View::make('aidkit::ressources.medics.show',compact('medic'));
+		$this->layout->content = View::make('aidkit::resources.medics.show',compact('medic'));
 	}
 
 	public function edit($id)
 	{
 		$medic = Medic::findOrFail($id);
-		$this->layout->content = View::make('aidkit::ressources.medics.edit',compact('medic'));
+		$this->layout->content = View::make('aidkit::resources.medics.edit',compact('medic'));
 	}
 
 	public function update($id)

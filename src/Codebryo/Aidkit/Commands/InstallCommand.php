@@ -40,8 +40,8 @@ class InstallCommand extends Command {
      */
     public function fire()
     {
-        if(File::exists(app_path().'/views_aidkit'))
-            return $this->error('Aidkit seems to be installed already! Delete the /views_aidkit Folder to enable the Installation.');
+        if(File::exists(app_path().'/Aidkit/views'))
+            return $this->error('Aidkit seems to be installed already! Delete the app/Aidkit/views Folder to enable the Installation.');
 
         // To prevent Errors create necessary Folders first
         $this->createFolders();
@@ -82,26 +82,23 @@ class InstallCommand extends Command {
     {
         // Define all the Folders that should be created relative to the app_path();
         $folders = array(
-            'views_aidkit',
-            'views_aidkit/errors',
-            'views_aidkit/js-views',
-
-            'views_aidkit/layouts',
-            'views_aidkit/layouts/partials',
-
-            'views_aidkit/ressources',
-            'views_aidkit/ressources/medics',
-
             'Aidkit',
             'Aidkit/controllers',
-            'Aidkit/models'
+            'Aidkit/models',
+            'Aidkit/views',
+            'Aidkit/views/errors',
+            'Aidkit/views/js-views',
+            'Aidkit/views/layouts',
+            'Aidkit/views/layouts/partials',
+            'Aidkit/views/resources',
+            'Aidkit/views/resources/medics',
         );
 
         foreach($folders as $folder)
         {
+            echo $folder;
             File::makeDirectory(app_path().'/'.$folder);
         }
-
     }
 
     /**
@@ -162,15 +159,15 @@ class InstallCommand extends Command {
             'dashboard',
             'errors/missing',
             'js-views/delete',    
-            'ressources/medics/index',
-            'ressources/medics/show',       
-            'ressources/medics/edit',
-            'ressources/medics/create',       
+            'resources/medics/index',
+            'resources/medics/show',
+            'resources/medics/edit',
+            'resources/medics/create',
         );
 
         foreach($views as $view)
         {
-            File::put(app_path().'/views_aidkit/'.$view.'.blade.php',File::get($templatePath.'/views/'.$view.'.txt'));
+            File::put(app_path().'/Aidkit/views/'.$view.'.blade.php',File::get($templatePath.'/views/'.$view.'.txt'));
         }
     }
 
@@ -183,7 +180,7 @@ class InstallCommand extends Command {
     {
         $templatePath = static::$templatePath;
 
-        File::put(app_path().'/routes_aidkit.php',File::get($templatePath.'/routes.txt'));
+        File::put(app_path().'/Aidkit/routes.php',File::get($templatePath.'/routes.txt'));
 
     }
 

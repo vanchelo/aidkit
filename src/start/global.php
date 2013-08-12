@@ -26,7 +26,7 @@
  * 
  */
 
-View::addNamespace('aidkit', app_path().'/views_aidkit');
+View::addNamespace('aidkit', app_path().'/Aidkit/views');
 
 
 /*
@@ -56,7 +56,7 @@ Route::group(array('prefix'=>Config::get('aidkit::config.urlprefix')),function()
 	Config::set('auth.model', Config::get('aidkit::auth.model'));
     Config::set('auth.table', Config::get('aidkit::auth.table'));
 
-	if(File::exists(app_path().'/routes_aidkit.php')) include app_path().'/routes_aidkit.php';
+	if(File::exists(app_path().'/Aidkit/routes.php')) include app_path().'/Aidkit/routes.php';
 
 });
 
