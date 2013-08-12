@@ -289,34 +289,33 @@ class ExtensionCommand extends Command {
             // move files to the directory
             if( File::isDirectory( $extensionFolder.'/controllers' ) )
             {
-                File::copyDirectory( $extensionFolder.'/controllers', app_path().'/controllers' );
+                File::copyDirectory( $extensionFolder.'/controllers', app_path().'/Aidkit/controllers' );
                 $this->info('Controllers have been created');
             }
 
             if( File::isDirectory( $extensionFolder.'/models' ) )
             {
-                File::copyDirectory( $extensionFolder.'/models', app_path().'/models' );
+                File::copyDirectory( $extensionFolder.'/models', app_path().'/Aidkit/models' );
                 $this->info('Models have been created');
             }
 
             if( File::isDirectory( $extensionFolder.'/views' ) )
             {
-                File::copyDirectory( $extensionFolder.'/views', app_path().'/views_admin' );
+                File::copyDirectory( $extensionFolder.'/views', app_path().'/Aidkit/views' );
                 $this->info('Views have been created');
             }
 
             if( File::isDirectory( $extensionFolder.'/database' ) )
             {
-                File::copyDirectory( $extensionFolder.'/databases', app_path().'/database' );
+                File::copyDirectory( $extensionFolder.'/database', app_path().'/database' );
                 $this->info('Database files have been created ( migrations/seeds )');
             }
 
             if( File::isDirectory( $extensionFolder.'/public' ) )
             {
-                File::copyDirectory( $extensionFolder.'/public', public_path().'/packages/codebryo/aidkit' );
-                $this->info('Published public files into "packages/codebryo/aidkit" ');
+                File::copyDirectory( $extensionFolder.'/public', public_path().'/packages/aidkit/aidkit' );
+                $this->info('Published public files into "packages/aidkit/aidkit" ');
             }
-
 
             // run the commands from the installation file.
             return $this->finishInstallation();
