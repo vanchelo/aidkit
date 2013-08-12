@@ -21,9 +21,9 @@ class Medic extends AidkitModel implements UserInterface {
 
 	// Define some basic rules
 	public static $rules = array(
-		'username' 	=> 'required|alpha_num|unique:aidmins,username,@id',
+		'username' 	=> 'required|alpha_num|unique:medics,username,@id',
 		'name'		=> 'required',
-		'email'		=> 'required|email|unique:aidmins,email,@id',
+		'email'		=> 'required|email|unique:medics,email,@id',
 		'password'	=> 'required'
 	);
 
