@@ -16,18 +16,20 @@
 Route::get('/',function(){ return Redirect::route('dashboard'); });
 
 // Handle GET & POST login calls
-Route::controller('login','AdminAuthController');
+Route::controller('login','AidkitAuthController');
 
 // Logout
-Route::get('logout','AdminAuthController@logout');
+Route::get('logout','AidkitAuthController@logout');
 
 // The Following Routes should be filtered
-Route::group(array('before'=>'adminauth'),function(){
+Route::group(array('before'=>'aidkitauth'),function(){
 
-	Route::get('dashboard',array('as'=>'dashboard','uses'=>'AdminHomeController@showDashboard'));
+	Route::get('dashboard',array('as'=>'dashboard','uses'=>'AidkitHomeController@showDashboard'));
 
 	// Aidkit provides all necessary Files for User CRUD out of the box
-	Route::resource('users', 'AdminUserController');
+	// Users of Aidkit are called Medics by default
+	Route::resource('medis', 'AidkitMedicsController');
+
 
     Route::get('restore/{model}/{id}','AidkitController@restore');
     Route::get('delete/{model}/{id}','AidkitController@delete');
@@ -40,7 +42,7 @@ Route::group(array('before'=>'adminauth'),function(){
 	// Some views can be loaded through ajax. They will be returned correctly by this route
 	// Example: It is used for creating the DELETE model window
 	Route::get('js/{template}',function($template){
-			return View::make('admin::js-views.'.$template);
+			return View::make('aidkit::js-views.'.$template);
 	});
 
 });
