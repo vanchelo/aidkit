@@ -7,7 +7,16 @@ if ( !function_exists('renderNavigation') )
         // The html Element that will be returned after parsing the array
         $html = '';
 
-        foreach ( $array as $item=>$attributes){
+        foreach ( $array as $item=>$attributes)
+        {
+
+            if(array_get($attributes,'role')) 
+            {
+                if( ! Auth::user()->hasAccessTo($attributes['role']))
+                {
+                    continue;
+                }
+            }
 
             // Set the title of the navigation point
             $title = (isset($attributes['title']) ? $attributes['title'] : $item );
@@ -35,6 +44,27 @@ if ( !function_exists('renderNavigation') )
     }
 }
 
+
+if ( !function_exists('renderRoleSelection') )
+{
+    function renderRoleSelection($roles,$currentRole)
+    {
+       $html = '';
+
+       foreach($roles as $roleID => $attributes)
+       {
+            // Check if the currentRole is the same as the roleID
+            $checked = ($currentRole == $roleID ? 'checked' : null);
+
+            // Build the input
+            $input = sprintf('<input type="radio" id="role[%s]" name="role" value="%s" %s>',$roleID,$roleID,$checked);
+            // Wrap it together into the label and pass it to the html Element
+            $html .= sprintf('<label for="role[%s]" class="pure-radio">%s</label>',$roleID,$input.ucfirst($attributes['title']));
+       }
+
+       return $html;
+    }
+}
 
 if ( !function_exists('renderBaseTag') )
 {

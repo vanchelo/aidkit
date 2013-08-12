@@ -15,9 +15,9 @@
 	<div id="logincontainer" class="pure-g-r">
 		<div id="login" class="pure-u {{ (isset($status) ? 'animated shake' : null ) }}">
 			
-			{{ Form::open(array('url'=>'admin/login','class'=>'pure-form pure-form-stacked')) }}
+			{{ Form::open(array('url'=> Config::get('aidkit::config.urlprefix').'/login','class'=>'pure-form pure-form-stacked')) }}
 
-				<legend>{{ $title }}</legend>
+				<legend><i class="icon-medkit"></i>{{ $title }} Login</legend>
 				
 				<fieldset>
 

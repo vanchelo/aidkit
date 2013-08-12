@@ -40,17 +40,20 @@ class InstallCommand extends Command {
      */
     public function fire()
     {
-        if(File::exists(app_path().'/views_admin'))
-            return $this->error('Aidkit seems to be installed already! Delete the /views_admin Folder to enable the Installation.');
+        if(File::exists(app_path().'/views_aidkit'))
+            return $this->error('Aidkit seems to be installed already! Delete the /views_aidkit Folder to enable the Installation.');
 
         // To prevent Errors create necessary Folders first
         $this->createFolders();
             $this->info('Basic Folder Structure has been created');
 
-        // Next calls are logically ordered ( at least in my logid :P )
+        // Next calls are logically ordered ( at least in my logic :P )
 
         $this->createControllers();
             $this->info('Basic Controllers have been created');
+
+        $this->createModels();
+            $this->info('Basic Models have been created');
 
         $this->createViews();
             $this->info('Basic Views have been created');
@@ -79,14 +82,19 @@ class InstallCommand extends Command {
     {
         // Define all the Folders that should be created relative to the app_path();
         $folders = array(
-            'views_admin',
-            'views_admin/errors',
-            'views_admin/js-views',
-            'views_admin/layout',
-            'views_admin/layout/partials',
-            'views_admin/users',
+            'views_aidkit',
+            'views_aidkit/errors',
+            'views_aidkit/js-views',
 
-            'controllers/Admin'
+            'views_aidkit/layouts',
+            'views_aidkit/layouts/partials',
+
+            'views_aidkit/ressources',
+            'views_aidkit/ressources/medics',
+
+            'Aidkit',
+            'Aidkit/controllers',
+            'Aidkit/models'
         );
 
         foreach($folders as $folder)
@@ -108,12 +116,32 @@ class InstallCommand extends Command {
         $controllers = array(
             'AuthController',
             'HomeController',
-            'UserController',
+            'MedicsController',
         );
 
         foreach($controllers as $controller)
         {
-            File::put(app_path().'/controllers/Admin/'.$controller.'.php',File::get($templatePath.'/controllers/'.$controller.'.txt'));
+            File::put(app_path().'/Aidkit/controllers/Aidkit'.$controller.'.php',File::get($templatePath.'/controllers/'.$controller.'.txt'));
+        }
+
+    }
+
+     /**
+     * Create a some Models.
+     *
+     * @return void
+     */
+    protected function createModels()
+    {
+        $templatePath = static::$templatePath;
+
+        $models = array(
+            'Medic'
+        );
+
+        foreach($models as $model)
+        {
+            File::put(app_path().'/Aidkit/models/'.$model.'.php',File::get($templatePath.'/models/'.$model.'.txt'));
         }
 
     }
@@ -128,21 +156,21 @@ class InstallCommand extends Command {
         $templatePath = static::$templatePath;
 
         $views = array(
-            'layout/master',
-            'layout/login',              
-            'layout/partials/navigation',
+            'layouts/master',
+            'layouts/login',              
+            'layouts/partials/navigation',
             'dashboard',
             'errors/missing',
             'js-views/delete',    
-            'users/index',
-            'users/show',       
-            'users/edit',        
-            'users/create',       
+            'ressources/medics/index',
+            'ressources/medics/show',       
+            'ressources/medics/edit',
+            'ressources/medics/create',       
         );
 
         foreach($views as $view)
         {
-            File::put(app_path().'/views_admin/'.$view.'.blade.php',File::get($templatePath.'/views/'.$view.'.txt'));
+            File::put(app_path().'/views_aidkit/'.$view.'.blade.php',File::get($templatePath.'/views/'.$view.'.txt'));
         }
     }
 
@@ -155,7 +183,7 @@ class InstallCommand extends Command {
     {
         $templatePath = static::$templatePath;
 
-        File::put(app_path().'/routes_admin.php',File::get($templatePath.'/routes.txt'));
+        File::put(app_path().'/routes_aidkit.php',File::get($templatePath.'/routes.txt'));
 
     }
 
@@ -167,11 +195,11 @@ class InstallCommand extends Command {
     protected function createSeed()
     {
         $templatePath = static::$templatePath;
-        $str_to_insert = '$this->call(\'UsersTableSeeder\');';
+        $str_to_insert = '$this->call(\'MedicsTableSeeder\');';
         $seeder = File::get(app_path().'/database/seeds/DatabaseSeeder.php');
         $pos = strpos($seeder,'}');
         $newSeeder = substr($seeder, 0, $pos) . PHP_EOL . $str_to_insert . PHP_EOL . substr($seeder, $pos);
         File::put(app_path().'/database/seeds/DatabaseSeeder.php',$newSeeder);
-        File::put(app_path().'/database/seeds/UsersTableSeeder.php',File::get($templatePath.'/seed.txt'));
+        File::put(app_path().'/database/seeds/MedicsTableSeeder.php',File::get($templatePath.'/seed.txt'));
     }
 }

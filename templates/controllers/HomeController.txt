@@ -1,11 +1,12 @@
 <?php
 
-class AdminHomeController extends AidkitController {
+class AidkitHomeController extends AidkitController {
 
 	public function showDashboard()
 	{
-		$actions = Actionlog::readableActions();
-		$this->layout->content = View::make('admin::dashboard',compact('actions'));
+		$actions = Actionlog::getRecentUserActions(Auth::user()->id);
+		
+		$this->layout->content = View::make('aidkit::dashboard',compact('actions'));
 	}
 	
 }

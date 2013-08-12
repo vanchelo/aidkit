@@ -8,14 +8,15 @@ return array(
 			'icon' 	=> 'icon-dashboard',
 			'url' => route('dashboard'),
 		),
-		'users' => array(
+		'medics' => array(
 			'icon' 	=> 'icon-user',
-			'url'	=> route('admin.users.index'),
+			'url'	=> route('aidkit.medics.index'),
+			'role'	=> 1,
 			
 			'sub-menu' => array(
 				'create' => array(
-					'title' => 'New User',
-					'url' 	=> route('admin.users.create')
+					'title' => 'New Medic',
+					'url' 	=> route('aidkit.medics.create')
 				)	
 			)
 			

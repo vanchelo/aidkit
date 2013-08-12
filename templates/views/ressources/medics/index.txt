@@ -1,0 +1,53 @@
+<header>
+	<h1>Aidkit Medics</h1>
+
+	<nav id="actions">
+		<ul>
+			<li><a href="{{ route('aidkit.medics.create') }}" class="pure-button-green"><i class="icon-plus"></i> New medicistrator</a></li>
+		</ul>
+	</nav>
+
+</header>
+<div class="body">
+	<div class="pure-u-1">
+	<h2><i class="icon-user"></i>List of medicistrators</h2>
+	<p class="note">
+	A list of all available medics for this site can be found here.
+	Only Supermedicistrators can create/update/delete medicistrators.
+	</p>
+
+@unless($medics)
+	<p class="empty">Empty</p>
+@else
+		<table>
+			<thead>
+				<tr>
+					<th>username</th>
+					<th>name</th>
+					<th>email</th>
+					<th>last login</th>
+					<th class="center">role</th>
+					<th class="center">actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach($medics as $medic)
+					<tr>
+						<td>{{ $medic->username }}</td>
+						<td>{{ $medic->name }}</td>
+						<td>{{ HTML::mailto($medic->email) }}</td>
+						<td>{{ Aidkit::composeReadableTime($medic->last_login)}}</td>
+						<td class="cling">{{ $medic->getRoletitle() }}</td>
+						<td class="cling actions">
+							<a href="{{ URL::route('aidkit.medics.show',$medic->id) }}" class="pure-button-blue"><i class="icon-eye-open"></i></a>
+							<a href="{{ URL::route('aidkit.medics.edit',$medic->id) }}" class="pure-button-green"><i class="icon-edit"></i></a>
+						</td>
+					</tr>
+				@endforeach
+			</tbody>
+		</table>
+
+		{{ $medics->links() }}
+@endunless
+	</div>
+</div>

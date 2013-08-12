@@ -27,6 +27,8 @@ class AidkitModel extends Eloquent {
      */
     public static $actionlogField = 'id';
 
+    public $lockEvents = false;
+
 
     public static function boot()
     {
@@ -61,12 +63,19 @@ class AidkitModel extends Eloquent {
         });
     }
 
+    public function eventsLocked()
+    {
+        return $this->lockEvents;
+    }
+
     
     protected static function createActionlogEntry($action, $model)
     {
+        if($model->eventsLocked() == true) return false;
+
         $actionlog = new Actionlog;
 
-        $actionlog->user_id = Auth::user()->id;
+        $actionlog->admin_id = Auth::user()->id;
         $actionlog->action = $action;
         $actionlog->object = get_class($model);
         $actionlog->object_id = $model->getKey();
@@ -78,6 +87,8 @@ class AidkitModel extends Eloquent {
 
     protected function validate()
     {
+        if($this->eventsLocked() == true) return true;
+
         // Replace all the @id places with the actual ID of the user
         $rules = static::$rules;
 

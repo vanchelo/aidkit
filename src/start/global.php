@@ -26,7 +26,7 @@
  * 
  */
 
-View::addNamespace('admin', app_path().'/views_admin');
+View::addNamespace('aidkit', app_path().'/views_aidkit');
 
 
 /*
@@ -53,7 +53,10 @@ View::share('title',Config::get('aidkit::config.title')); // $title will return 
 
 Route::group(array('prefix'=>Config::get('aidkit::config.urlprefix')),function(){
 
-	if(File::exists(app_path().'/routes_admin.php')) include app_path().'/routes_admin.php';
+	Config::set('auth.model', Config::get('aidkit::auth.model'));
+    Config::set('auth.table', Config::get('aidkit::auth.table'));
+
+	if(File::exists(app_path().'/routes_aidkit.php')) include app_path().'/routes_aidkit.php';
 
 });
 
@@ -63,9 +66,9 @@ Route::group(array('prefix'=>Config::get('aidkit::config.urlprefix')),function()
  *
  */
 
-Route::filter('adminauth', function()
+Route::filter('aidkitauth', function()
 {
-	if (Auth::guest()) return Redirect::guest(Config::get('aidkit::config.urlprefix').'/login');
+	if (Auth::guest() || get_class(Auth::user()) != Config::get('aidkit::auth.model')) return Redirect::guest(Config::get('aidkit::config.urlprefix').'/login');
 });
 
 /*
@@ -76,6 +79,22 @@ Route::filter('adminauth', function()
 
 App::missing(function($exception)
 {
-	return View::make('admin::errors/missing');
+	return View::make('aidkit::errors/missing');
+});
+
+/*
+ *
+ * Listen To certain Events throught Aidkit
+ *
+ */
+
+Event::listen('aidkit.login', function($medic)
+{
+	$medic->lockEvents = true;
+
+    $medic->last_login = $medic->freshTimestamp();
+
+    $medic->save();
+
 });
 

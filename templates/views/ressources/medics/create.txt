@@ -1,9 +1,9 @@
 <header>
-    <h1>Create a new User</h1>  
+    <h1>Create a new Aidkit Medic</h1>  
 </header>
 <div class="body">
     <div class="pure-u-1">
-        {{ Form::open(array('route'=>'admin.users.store','class'=>'pure-form pure-form-stacked'))}}
+        {{ Form::open(array('route'=>'aidkit.medics.store','class'=>'pure-form pure-form-stacked'))}}
     <fieldset>
         <legend>Details</legend>
 
@@ -32,28 +32,20 @@
         <legend>Role</legend>
 
         <div class="pure-u-1-2">
-            <label for="role_admin" class="pure-radio">
-                <input id="role_admin" type="radio" name="role" value="1">
-                Administrator
-            </label>
-
-            <label for="role_user" class="pure-radio">
-                <input id="role_user" type="radio" name="role" value="2" checked>
-                User
-            </label>
+            {{ Aidkit::renderRoleSelection(Config::get('aidkit::config.roles')) }}
         </div>
 
         <div class="pure-u-1-2">
             <p class="info">
             <strong>Note:</strong>
-                Be aware that by default only Administrators can login to the backend. Feel free to change that if you prefer.
+                Be aware that by default only Superadmins can change every aspect of the Backend.
                 <br>
-                You may also create more userroles if you like.
+                Feel free to add new Userroles if needed.
             </p>
         </div>
 
         <div class="pure-u-1 form-bottom">
-            <a href="{{ route('admin.users.index') }}" class="cancel">Cancel</a>
+            <a href="{{ route('aidkit.medics.index') }}" class="cancel">Cancel</a>
             <button type="submit" class="pure-button-blue"><i class="icon-plus"></i>Create</button>
         </div>
 
