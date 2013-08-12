@@ -1,5 +1,5 @@
 <header>
-    @if($admin->id == Auth::user()->id)
+    @if($medic->id == Auth::user()->id)
         <h1>Update Profile</h1>
 
         <nav id="actions">
@@ -8,12 +8,12 @@
             </ul>
         </nav>
     @else
-        <h1>Update: {{ $admin->name }}</h1>
+        <h1>Update: {{ $medic->name }}</h1>
     @endif
 </header>
 <div class="body">
     <div class="pure-u-1">
-        {{ Form::model($admin,array('route'=>array('admin.admins.update',$admin->id),'method'=>'PATCH','class'=>'pure-form pure-form-stacked'))}}
+        {{ Form::model($medic,array('route'=>array('aidkit.medics.update',$medic->id),'method'=>'PATCH','class'=>'pure-form pure-form-stacked'))}}
     <fieldset>
         <legend>Details</legend>
 
@@ -45,11 +45,11 @@
         <legend>Role</legend>
 
         <div class="pure-u-1">
-            {{ Aidkit::renderRoleSelection(Config::get('aidkit::config.roles'),$admin->role) }}
+            {{ Aidkit::renderRoleSelection(Config::get('aidkit::config.roles'),$medic->role) }}
         </div>
 
         <div class="pure-u-1 form-bottom">
-            <a href="{{ route('admin.admins.index') }}" class="cancel">Cancel</a>
+            <a href="{{ route('aidkit.medics.index') }}" class="cancel">Cancel</a>
             <button type="submit" class="pure-button-green"><i class="icon-edit"></i>Update</button>
         </div>
 

@@ -2,28 +2,28 @@
 
 use Illuminate\Auth\UserInterface;
 
-class Admin extends AidkitModel implements UserInterface {
+class Medic extends AidkitModel implements UserInterface {
 
 	// What properties shall be guarded
 	protected $guarded = array();
 
 	// Name of the table
-	protected $table = 'admins';
+	protected $table = 'medics';
 
 	// Admins will be softDeleted by default
 	protected $softDelete = true;
 
 	// How should the Actionlog name this Object
-	public static $actionlogObjectName = 'Administrator';
+	public static $actionlogObjectName = 'Aidkit Medic';
 
 	// Set a different Field to be usef for readable Messages
 	public static $actionlogField = 'username';
 
 	// Define some basic rules
 	public static $rules = array(
-		'username' 	=> 'required|alpha_num|unique:admins,username,@id',
+		'username' 	=> 'required|alpha_num|unique:aidmins,username,@id',
 		'name'		=> 'required',
-		'email'		=> 'required|email|unique:admins,email,@id',
+		'email'		=> 'required|email|unique:aidmins,email,@id',
 		'password'	=> 'required'
 	);
 
@@ -31,6 +31,13 @@ class Admin extends AidkitModel implements UserInterface {
 	public function setPassword($password)
 	{
 		$this->attributes['password'] = Hash::make($password);
+	}
+
+	public function getRoletitle()
+	{
+		$roles = Config::get('aidkit::config.roles');
+
+		return $roles[$this->role]['title'];
 	}
 
 	// return the Username

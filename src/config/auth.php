@@ -9,9 +9,9 @@
 return array(
 
 	// What model should be used for the backend users
-	'model' 		=> 'Admin',
+	'model' 		=> 'Medic',
 
 	// Whats the name of the table used for the Authentification
-	'table'			=> 'admins',
+	'table'			=> 'medics',
 
 );

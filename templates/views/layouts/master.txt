@@ -20,7 +20,7 @@
 		<nav id="user">
 			<ul>
 				<li>Hello, {{ Auth::user()->username }}</li>
-				<li><a href="{{ URL::route('admin.users.edit', Auth::user()->id) }}">Edit Profile</a></li>
+				<li><a href="{{ URL::route('admin.medics.edit', Auth::user()->id) }}">Edit Profile</a></li>
 				<li><a href="{{ URL::to('admin/logout') }}">Logout</a></li>
 			</ul>
 		</nav>
@@ -31,7 +31,7 @@
 		<aside class="pure-u-1">
 			<h1 id="title"><i class="icon-medkit"></i> Aidkit</h1>
 
-			@include('admin::layout.partials.navigation')
+			@include('admin::layouts.partials.navigation')
 
 		</aside>
 

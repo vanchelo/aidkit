@@ -1,9 +1,9 @@
 <header>
-    <h1>Create a new User</h1>  
+    <h1>Create a new Aidkit Medic</h1>  
 </header>
 <div class="body">
     <div class="pure-u-1">
-        {{ Form::open(array('route'=>'admin.admins.store','class'=>'pure-form pure-form-stacked'))}}
+        {{ Form::open(array('route'=>'aidkit.medics.store','class'=>'pure-form pure-form-stacked'))}}
     <fieldset>
         <legend>Details</legend>
 
@@ -45,7 +45,7 @@
         </div>
 
         <div class="pure-u-1 form-bottom">
-            <a href="{{ route('admin.admins.index') }}" class="cancel">Cancel</a>
+            <a href="{{ route('aidkit.medics.index') }}" class="cancel">Cancel</a>
             <button type="submit" class="pure-button-blue"><i class="icon-plus"></i>Create</button>
         </div>
 

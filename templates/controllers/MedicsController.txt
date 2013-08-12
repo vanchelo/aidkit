@@ -1,0 +1,73 @@
+<?php
+
+/*
+ * AidkitUsers will be called Medics by default
+ * For conveniance you can still call the current user of a Session
+ * using Auth::user()
+ */
+
+class AidkitMedicsController extends AidkitController{
+
+	public function index()
+	{
+		$medics = Medic::paginate(15);
+		$this->layout->content = View::make('aidkit::ressources.medics.index',compact('medics'));
+	}
+
+	public function create()
+	{
+		$this->layout->content = View::make('aidkit::ressources.medics.create');
+	}
+
+	public function store()
+	{
+		$insertArray = Input::all();
+		$medic = new medic($insertArray);
+		$medic->setPassword(Input::get('password'));
+
+		if($medic->save()) return Redirect::route('aidkit.medics.index');
+		
+		return Redirect::back()->withInput()->withErrors($medic->errors);
+	}
+
+	public function show($id)
+	{
+		$medic = Medic::findOrFail($id);
+		$this->layout->content = View::make('aidkit::ressources.medics.show',compact('medic'));
+	}
+
+	public function edit($id)
+	{
+		$medic = Medic::findOrFail($id);
+		$this->layout->content = View::make('aidkit::ressources.medics.edit',compact('medic'));
+	}
+
+	public function update($id)
+	{
+		$medic = Medic::findOrFail($id);
+
+		$updateArray = Input::only('name','role');
+		if(Input::get('username') != $medic->username) $updateArray['username'] = Input::get('username');
+		if(Input::get('email') != $medic->email) $updateArray['email'] = Input::get('email');
+		if(Input::has('new_password')) $updateArray['password'] = Hash::make(Input::get('username'));
+
+		if ($medic->update($updateArray)) return Redirect::route('aidkit.medics.show',$id);
+
+		return Redirect::back()->withInput()->withErrors($medic->errors);
+	}
+
+	public function destroy($id)
+	{
+		if(strtoupper(Input::get('delete')) == 'DELETE'){
+			$medic = Medic::findOrFail($id);
+			$medic->delete();
+
+			return Redirect::route('aidkit.medics.index');
+		}
+		else {
+			return Redirect::route('aidkit.medics.show',$id);
+		}
+		
+	}
+	
+}

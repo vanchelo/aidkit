@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAidkitUsersTable extends Migration {
+class CreateMedicsTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -11,12 +11,12 @@ class CreateAidkitUsersTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('admins', function($table)
+		Schema::create('medics', function($table)
 		{
 		    $table->increments('id');
 		    $table->string('name');
 		    $table->string('username')->unique();
-		    $table->string('password',62);
+		    $table->string('password',60);
 		    $table->string('email')->unique()->nullable()->default(null);
 		    $table->integer('role')->nullable()->default(null);
 		    $table->datetime('last_login')->nullable()->default(null);
@@ -32,7 +32,7 @@ class CreateAidkitUsersTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::dropIfExists('admins');
+		Schema::dropIfExists('medics');
 	}
 
 }
