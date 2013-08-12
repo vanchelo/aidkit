@@ -38,7 +38,7 @@
         <div class="pure-u-1-2">
             <p class="info">
             <strong>Note:</strong>
-                Be aware that by default only Superadmins can change every aspect of the Backend.
+                Be aware that by default only Dr House can change everything throughout Aidkit.
                 <br>
                 Feel free to add new Userroles if needed.
             </p>

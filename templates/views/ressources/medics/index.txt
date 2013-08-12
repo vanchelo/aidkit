@@ -3,7 +3,7 @@
 
 	<nav id="actions">
 		<ul>
-			<li><a href="{{ route('aidkit.medics.create') }}" class="pure-button-green"><i class="icon-plus"></i> New medicistrator</a></li>
+			<li><a href="{{ route('aidkit.medics.create') }}" class="pure-button-green"><i class="icon-plus"></i> New Medic</a></li>
 		</ul>
 	</nav>
 

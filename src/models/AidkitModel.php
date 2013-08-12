@@ -75,7 +75,7 @@ class AidkitModel extends Eloquent {
 
         $actionlog = new Actionlog;
 
-        $actionlog->admin_id = Auth::user()->id;
+        $actionlog->medic_id = Auth::user()->id;
         $actionlog->action = $action;
         $actionlog->object = get_class($model);
         $actionlog->object_id = $model->getKey();
