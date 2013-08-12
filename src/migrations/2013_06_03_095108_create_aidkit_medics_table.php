@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMedicsTable extends Migration {
+class CreateAidkitMedicsTable extends Migration {
 
 	/**
 	 * Run the migrations.

@@ -28,7 +28,7 @@ Route::group(array('before'=>'aidkitauth'),function(){
 
 	// Aidkit provides all necessary Files for User CRUD out of the box
 	// Users of Aidkit are called Medics by default
-	Route::resource('medis', 'AidkitMedicsController');
+	Route::resource('medics', 'AidkitMedicsController');
 
 
     Route::get('restore/{model}/{id}','AidkitController@restore');

@@ -16,7 +16,7 @@ return array(
 			'sub-menu' => array(
 				'create' => array(
 					'title' => 'New Medic',
-					'url' 	=> route('aidkit.medic.create')
+					'url' 	=> route('aidkit.medics.create')
 				)	
 			)
 			

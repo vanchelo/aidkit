@@ -25,7 +25,7 @@
 				<tr>
 					<td class="cling">{{ $action->action }}</td>
 					<td class="border">{{ Aidkit::composeActionMessage($action) }}</td>
-					<td class="cling border">{{ $action->admin->getUsername() }}</td>
+					<td class="cling border">{{ $action->medic->getUsername() }}</td>
 					<td class="cling border">{{ Aidkit::composeReadableTime($action->created_at) }}</td>
 				</tr>
 			@endforeach
