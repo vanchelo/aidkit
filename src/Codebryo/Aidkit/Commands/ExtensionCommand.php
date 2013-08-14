@@ -293,6 +293,12 @@ class ExtensionCommand extends Command {
                 $this->info('Controllers have been created');
             }
 
+            if( File::isDirectory( $extensionFolder.'/routes' ) )
+            {
+                File::copyDirectory( $extensionFolder.'/routes', app_path().'/Aidkit/routes' );
+                $this->info('Routes have been added');
+            }
+
             if( File::isDirectory( $extensionFolder.'/models' ) )
             {
                 File::copyDirectory( $extensionFolder.'/models', app_path().'/Aidkit/models' );

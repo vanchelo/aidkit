@@ -58,6 +58,15 @@ Route::group(array('prefix'=>Config::get('aidkit::config.urlprefix')),function()
 
 	if(File::exists(app_path().'/Aidkit/routes.php')) include app_path().'/Aidkit/routes.php';
 
+
+    $routes = File::files( app_path().'/Aidkit/routes' );
+    if( !empty($routes) )
+    {
+        foreach( $routes AS $route )
+        {
+            include_once($route);
+        }
+    }
 });
 
 /*

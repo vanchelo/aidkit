@@ -85,6 +85,7 @@ class InstallCommand extends Command {
             'Aidkit',
             'Aidkit/controllers',
             'Aidkit/models',
+            'Aidkit/routes',
             'Aidkit/views',
             'Aidkit/views/errors',
             'Aidkit/views/js-views',
