@@ -3,11 +3,13 @@ Aidkit
 
 The "Admin Interface Development Kit" for [Laravel](http://www.laravel.com)
 
-You can find a full documentation on *Adikit* [here](http://codebryo.github.io/aidkit/index.html)
+You can find a full documentation on *Adikit* [here](https://github.com/aidkit/docs)
 
 http://codebryo.github.io/aidkit/img/screen1.png
 
-## New Features
+## Recent Updates
+
+- New Users Authentification. Those Users are called *Medics* by default.
 
 - Missing Page - If you enter a wrong url or so you'll see a beautiful 404 Page [Preview](http://dribbble.com/shots/1180575-Aidkit-404-Page?list=following)
 
