@@ -1,9 +1,9 @@
 <header>
-    <h1>User: {{ $admin->name }}</h1> 
+    <h1>User: {{ $medic->name }}</h1> 
     <nav id="actions">
 		<ul>
-			<li><a href="{{ URL::route('admin.admins.edit',$admin->id) }}" class="pure-button-green"><i class="icon-edit"></i> Edit</a></li>
-			<li><a href="{{ URL::route('admin.admins.destroy',$admin->id) }}" class="pure-button-red js-remove"><i class="icon-remove"></i> Delete</a></li>
+			<li><a href="{{ URL::route('aidkit.medics.edit',$medic->id) }}" class="pure-button-green"><i class="icon-edit"></i> Edit</a></li>
+			<li><a href="{{ URL::route('aidkit.medics.destroy',$medic->id) }}" class="pure-button-red js-remove"><i class="icon-remove"></i> Delete</a></li>
 		</ul>
 	</nav>
 </header>
