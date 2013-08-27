@@ -13,7 +13,7 @@
 </header>
 <div class="body">
     <div class="pure-u-1">
-        {{ Form::model($medic,array('route'=>array('aidkit.medics.update',$medic->id),'method'=>'PATCH','class'=>'pure-form pure-form-stacked'))}}
+        {{ Form::model($medic,array('route'=>array(Config::get('aidkit::config.urlprefix').'.medics.update',$medic->id),'method'=>'PATCH','class'=>'pure-form pure-form-stacked'))}}
     <fieldset>
         <legend>Details</legend>
 
@@ -49,7 +49,7 @@
         </div>
 
         <div class="pure-u-1 form-bottom">
-            <a href="{{ route('aidkit.medics.index') }}" class="cancel">Cancel</a>
+            <a href="{{ route(Config::get('aidkit::config.urlprefix').'.medics.index') }}" class="cancel">Cancel</a>
             <button type="submit" class="pure-button-green"><i class="icon-edit"></i>Update</button>
         </div>
 

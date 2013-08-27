@@ -25,7 +25,7 @@ class AidkitMedicsController extends AidkitController{
 		$medic = new medic($insertArray);
 		$medic->setPassword(Input::get('password'));
 
-		if($medic->save()) return Redirect::route('aidkit.medics.index');
+		if($medic->save()) return Redirect::route(Config::get('aidkit::config.urlprefix').'.medics.index');
 		
 		return Redirect::back()->withInput()->withErrors($medic->errors);
 	}
@@ -51,7 +51,7 @@ class AidkitMedicsController extends AidkitController{
 		if(Input::get('email') != $medic->email) $updateArray['email'] = Input::get('email');
 		if(Input::has('new_password')) $updateArray['password'] = Hash::make(Input::get('username'));
 
-		if ($medic->update($updateArray)) return Redirect::route('aidkit.medics.show',$id);
+		if ($medic->update($updateArray)) return Redirect::route(Config::get('aidkit::config.urlprefix').'.medics.show',$id);
 
 		return Redirect::back()->withInput()->withErrors($medic->errors);
 	}
@@ -62,10 +62,10 @@ class AidkitMedicsController extends AidkitController{
 			$medic = Medic::findOrFail($id);
 			$medic->delete();
 
-			return Redirect::route('aidkit.medics.index');
+			return Redirect::route(Config::get('aidkit::config.urlprefix').'.medics.index');
 		}
 		else {
-			return Redirect::route('aidkit.medics.show',$id);
+			return Redirect::route(Config::get('aidkit::config.urlprefix').'.medics.show',$id);
 		}
 		
 	}

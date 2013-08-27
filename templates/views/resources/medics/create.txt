@@ -3,7 +3,7 @@
 </header>
 <div class="body">
     <div class="pure-u-1">
-        {{ Form::open(array('route'=>'aidkit.medics.store','class'=>'pure-form pure-form-stacked'))}}
+        {{ Form::open(array('route'=> Config::get('aidkit::config.urlprefix').'.medics.store', 'class'=>'pure-form pure-form-stacked'))}}
     <fieldset>
         <legend>Details</legend>
 
@@ -45,7 +45,7 @@
         </div>
 
         <div class="pure-u-1 form-bottom">
-            <a href="{{ route('aidkit.medics.index') }}" class="cancel">Cancel</a>
+            <a href="{{ route(Config::get('aidkit::config.urlprefix').'.medics.index') }}" class="cancel">Cancel</a>
             <button type="submit" class="pure-button-blue"><i class="icon-plus"></i>Create</button>
         </div>
 
