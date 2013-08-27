@@ -10,13 +10,13 @@ return array(
 		),
 		'medics' => array(
 			'icon' 	=> 'icon-user',
-			'url'	=> route('aidkit.medics.index'),
+			'url'	=> route(Config::get('aidkit::config.urlprefix').'.medics.index'),
 			'role'	=> 1,
 			
 			'sub-menu' => array(
 				'create' => array(
 					'title' => 'New Medic',
-					'url' 	=> route('aidkit.medics.create')
+					'url' 	=> route(Config::get('aidkit::config.urlprefix').'.medics.create')
 				)	
 			)
 			
