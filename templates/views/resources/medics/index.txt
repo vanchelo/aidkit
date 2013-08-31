@@ -3,7 +3,7 @@
 
 	<nav id="actions">
 		<ul>
-			<li><a href="{{ route('aidkit.medics.create') }}" class="pure-button-green"><i class="icon-plus"></i> New Medic</a></li>
+			<li><a href="{{ route(Config::get('aidkit::config.urlprefix').'.medics.create') }}" class="pure-button-green"><i class="icon-plus"></i> New Medic</a></li>
 		</ul>
 	</nav>
 
@@ -39,8 +39,8 @@
 						<td>{{ Aidkit::composeReadableTime($medic->last_login)}}</td>
 						<td class="cling">{{ $medic->getRoletitle() }}</td>
 						<td class="cling actions">
-							<a href="{{ URL::route('aidkit.medics.show',$medic->id) }}" class="pure-button-blue"><i class="icon-eye-open"></i></a>
-							<a href="{{ URL::route('aidkit.medics.edit',$medic->id) }}" class="pure-button-green"><i class="icon-edit"></i></a>
+							<a href="{{ URL::route(Config::get('aidkit::config.urlprefix').'.medics.show',$medic->id) }}" class="pure-button-blue"><i class="icon-eye-open"></i></a>
+							<a href="{{ URL::route(Config::get('aidkit::config.urlprefix').'.medics.edit',$medic->id) }}" class="pure-button-green"><i class="icon-edit"></i></a>
 						</td>
 					</tr>
 				@endforeach
