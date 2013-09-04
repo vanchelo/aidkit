@@ -2051,7 +2051,7 @@ td.actions a[class*='pure-button'] { padding: 0.5em 0.7em; }
 #contentwrapper > aside { float: left; background: #f9f9f9; width: 200px; margin-left: -200px; height: 100%; border-right: 1px solid #eaeaea; overflow: hidden; }
 
 /* line 19, raw/aidkit/_content.scss */
-#title { line-height: 100px; margin: 0; padding: 0 10px; background: #fa542e; color: #fff; text-align: center; }
+#aidkitTitle { line-height: 100px; margin: 0; padding: 0 10px; background: #fa542e; color: #fff; text-align: center; }
 
 /* line 30, raw/aidkit/_content.scss */
 #main li { float: left; width: 100%; display: block; }
