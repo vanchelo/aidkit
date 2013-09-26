@@ -2,14 +2,14 @@
 
 class AidkitModel extends Eloquent {
 
-	/**
-	 *
-	 * Store Error Messages in here
-	 *
+    /**
+     *
+     * Store Error Messages in here
+     *
      * @var array
      *
-	 */
-	public $errors;
+     */
+    public $errors;
 
 
     /**
@@ -39,28 +39,28 @@ class AidkitModel extends Eloquent {
         // Setup event bindings...
 
         static::saving(function($model)
-    	{
-    		return $model->validate();	
-    	});
+        {
+            return $model->validate($model);    
+        });
 
         static::created(function($model)
         {
-            return static::createActionlogEntry('created',$model);
+            return $model::createActionlogEntry('created',$model);
         });
 
         static::updated(function($model)
         {
-            return static::createActionlogEntry('updated',$model);
+            return $model::createActionlogEntry('updated',$model);
         });
 
         static::deleted(function($model)
         {
-            return static::createActionlogEntry('deleted',$model);
+            return $model::createActionlogEntry('deleted',$model);
         });
 
         static::restored(function($model)
         {
-            return static::createActionlogEntry('restored',$model);
+            return $model::createActionlogEntry('restored',$model);
         });
     }
 
@@ -95,26 +95,28 @@ class AidkitModel extends Eloquent {
     }
 
 
-    protected function validate()
+    protected static function validate($model)
     {
-        if($this->eventsLocked() == true) return true;
+        if($model->eventsLocked() == true) return true;
 
         // Replace all the @id places with the actual ID of the user
-        $rules = static::$rules;
+        $rules = $model::$rules;
+
+        $attributes = $model->getAttributes();
 
         foreach($rules as $key=>$value){
-            if(!isset($this->attributes['id']))
+            if(!isset($attributes['id']))
                 $rules[$key] = str_replace(",@id",'',$value); // If there is no id set remove this placeholder from the validation
             else
-                $rules[$key] = str_replace("@id", $this->attributes['id'],$value);
+                $rules[$key] = str_replace("@id", $attributes['id'],$value);
         }
         
-    	$validation = Validator::make($this->attributes,$rules);
+        $validation = Validator::make($attributes,$rules);
 
-    	if ($validation->passes()) return true;
+        if ($validation->passes()) return true;
 
-    	$this->errors = $validation->messages();
+        $model->errors = $validation->messages();
 
-    	return false;
+        return false;
     }
 }
