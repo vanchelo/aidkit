@@ -21,9 +21,9 @@ class AidkitMedicsController extends AidkitController{
 
 	public function store()
 	{
-		$insertArray = Input::all();
-		$medic = new medic($insertArray);
-		$medic->setPassword(Input::get('password'));
+		$medic = new Medic(Input::get());
+		$medic->password = Input::get('password');
+		$medic->role = Input::get('role');
 
 		if($medic->save()) return Redirect::route(Config::get('aidkit::config.urlprefix').'.medics.index');
 		
@@ -46,12 +46,10 @@ class AidkitMedicsController extends AidkitController{
 	{
 		$medic = Medic::findOrFail($id);
 
-		$updateArray = Input::only('name','role');
-		if(Input::get('username') != $medic->username) $updateArray['username'] = Input::get('username');
-		if(Input::get('email') != $medic->email) $updateArray['email'] = Input::get('email');
-		if(Input::has('new_password')) $updateArray['password'] = Hash::make(Input::get('username'));
+		$medic->role = Input::get('role');
+		if(Input::has('new_password')) $medic->password = Input::get('new_password');
 
-		if ($medic->update($updateArray)) return Redirect::route(Config::get('aidkit::config.urlprefix').'.medics.show',$id);
+		if ($medic->update(Input::get())) return Redirect::route(Config::get('aidkit::config.urlprefix').'.medics.show',$id);
 
 		return Redirect::back()->withInput()->withErrors($medic->errors);
 	}
