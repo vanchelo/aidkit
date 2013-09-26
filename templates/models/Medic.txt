@@ -5,11 +5,20 @@ use Illuminate\Auth\UserInterface;
 class Medic extends AidkitModel implements UserInterface {
 
 	/**
+	 * What columns should be fillable
+	 *
+	 * @var string
+	 */
+	protected $fillable = array('name','username','email');
+
+	/**
 	 * What columns should be guarded
 	 *
 	 * @var string
 	 */
-	protected $guarded = array();
+	protected $guarded = array('role','password');
+
+
 
 	/**
 	 * The table associated with the model.
@@ -73,7 +82,7 @@ class Medic extends AidkitModel implements UserInterface {
 	 *
 	 * @return void
 	 */
-	public function setPassword($password)
+	public function setPasswordAttribute($password)
 	{
 		$this->attributes['password'] = Hash::make($password);
 	}
