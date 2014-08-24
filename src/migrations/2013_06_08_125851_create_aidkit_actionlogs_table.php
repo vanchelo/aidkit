@@ -2,8 +2,8 @@
 
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAidkitActionlogsTable extends Migration {
-
+class CreateAidkitActionlogsTable extends Migration
+{
 	/**
 	 * Run the migrations.
 	 *
@@ -11,14 +11,14 @@ class CreateAidkitActionlogsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('actionlogs', function($table)
+		Schema::create('actionlogs', function ($table)
 		{
-		    $table->increments('id');
-		    $table->integer('medic_id');
-		    $table->string('action');
-		    $table->string('object');
-		    $table->integer('object_id');
-		    $table->timestamp('created_at');
+			$table->increments('id');
+			$table->integer('medic_id');
+			$table->string('action');
+			$table->string('object');
+			$table->integer('object_id');
+			$table->timestamp('created_at');
 		});
 	}
 
@@ -31,5 +31,4 @@ class CreateAidkitActionlogsTable extends Migration {
 	{
 		Schema::dropIfExists('actionlogs');
 	}
-
 }

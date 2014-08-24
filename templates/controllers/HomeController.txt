@@ -1,12 +1,11 @@
 <?php
 
-class AidkitHomeController extends AidkitController {
-
+class AidkitHomeController extends AidkitController
+{
 	public function showDashboard()
 	{
 		$actions = Actionlog::getRecentUserActions(Auth::user()->id);
-		
-		$this->layout->content = View::make('aidkit::dashboard',compact('actions'));
+
+		$this->layout->content = View::make('aidkit::dashboard', compact('actions'));
 	}
-	
 }

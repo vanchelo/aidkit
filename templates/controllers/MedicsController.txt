@@ -1,17 +1,17 @@
 <?php
 
-/*
+/**
  * AidkitUsers will be called Medics by default
  * For conveniance you can still call the current user of a Session
  * using Auth::user()
  */
 
-class AidkitMedicsController extends AidkitController{
-
+class AidkitMedicsController extends AidkitController
+{
 	public function index()
 	{
 		$medics = Medic::paginate(15);
-		$this->layout->content = View::make('aidkit::resources.medics.index',compact('medics'));
+		$this->layout->content = View::make('aidkit::resources.medics.index', compact('medics'));
 	}
 
 	public function create()
@@ -25,21 +25,24 @@ class AidkitMedicsController extends AidkitController{
 		$medic->password = Input::get('password');
 		$medic->role = Input::get('role');
 
-		if($medic->save()) return Redirect::route(Config::get('aidkit::config.urlprefix').'.medics.index');
-		
+		if ($medic->save())
+		{
+			return Redirect::route(Config::get('aidkit::config.urlprefix') . '.medics.index');
+		}
+
 		return Redirect::back()->withInput()->withErrors($medic->errors);
 	}
 
 	public function show($id)
 	{
 		$medic = Medic::findOrFail($id);
-		$this->layout->content = View::make('aidkit::resources.medics.show',compact('medic'));
+		$this->layout->content = View::make('aidkit::resources.medics.show', compact('medic'));
 	}
 
 	public function edit($id)
 	{
 		$medic = Medic::findOrFail($id);
-		$this->layout->content = View::make('aidkit::resources.medics.edit',compact('medic'));
+		$this->layout->content = View::make('aidkit::resources.medics.edit', compact('medic'));
 	}
 
 	public function update($id)
@@ -47,25 +50,31 @@ class AidkitMedicsController extends AidkitController{
 		$medic = Medic::findOrFail($id);
 
 		$medic->role = Input::get('role');
-		if(Input::has('new_password')) $medic->password = Input::get('new_password');
+		if (Input::has('new_password'))
+		{
+			$medic->password = Input::get('new_password');
+		}
 
-		if ($medic->update(Input::get())) return Redirect::route(Config::get('aidkit::config.urlprefix').'.medics.show',$id);
+		if ($medic->update(Input::get()))
+		{
+			return Redirect::route(Config::get('aidkit::config.urlprefix') . '.medics.show', $id);
+		}
 
 		return Redirect::back()->withInput()->withErrors($medic->errors);
 	}
 
 	public function destroy($id)
 	{
-		if(strtoupper(Input::get('delete')) == 'DELETE'){
+		if (strtoupper(Input::get('delete')) == 'DELETE')
+		{
 			$medic = Medic::findOrFail($id);
 			$medic->delete();
 
-			return Redirect::route(Config::get('aidkit::config.urlprefix').'.medics.index');
+			return Redirect::route(Config::get('aidkit::config.urlprefix') . '.medics.index');
 		}
-		else {
-			return Redirect::route(Config::get('aidkit::config.urlprefix').'.medics.show',$id);
+		else
+		{
+			return Redirect::route(Config::get('aidkit::config.urlprefix') . '.medics.show', $id);
 		}
-		
 	}
-	
 }

@@ -1,27 +1,27 @@
 <?php
 
-return array(
+return [
 
-	'navigation' => array(
+	'navigation' => [
 
-		'dashboard' => array(
-			'icon' 	=> 'icon-dashboard',
+		'dashboard' => [
+			'icon' => 'icon-dashboard',
 			'url' => route('dashboard'),
-		),
-		'medics' => array(
-			'icon' 	=> 'icon-user',
-			'url'	=> route(Config::get('aidkit::config.urlprefix').'.medics.index'),
-			'role'	=> 1,
-			
-			'sub-menu' => array(
-				'create' => array(
-					'title' => 'New Medic',
-					'url' 	=> route(Config::get('aidkit::config.urlprefix').'.medics.create')
-				)	
-			)
-			
-		),
-		
-	)
+		],
 
-);
+		'medics' => [
+			'icon' => 'icon-user',
+			'url' => route(Config::get('aidkit::config.urlprefix') . '.medics.index'),
+			'role' => 1,
+
+			'sub-menu' => [
+				'create' => [
+					'title' => 'New Medic',
+					'url' => route(Config::get('aidkit::config.urlprefix') . '.medics.create')
+				]
+			]
+		],
+
+	]
+
+];

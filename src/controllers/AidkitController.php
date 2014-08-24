@@ -1,7 +1,7 @@
 <?php
 
-class AidkitController extends Controller {
-
+class AidkitController extends Controller
+{
 	/**
 	 * The Basic Layout File. Can be overwritten by a configvalue
 	 *
@@ -18,53 +18,50 @@ class AidkitController extends Controller {
 	 */
 	protected function setupLayout()
 	{
-
 		// Provide the Layoutview depending on the Config Value
-		$this->layout = View::make('aidkit::'.Config::get('aidkit::config.layout'));
+		$this->layout = View::make('aidkit::' . Config::get('aidkit::config.layout'));
 	}
 
+	/**
+	 * restore an soft-deleted item.
+	 *
+	 * @param $model
+	 * @param $id
+	 *
+	 * @return URL Redirect
+	 */
+	public function restore($model, $id)
+	{
+		$model = ucfirst($model);
 
-    /**
-     * restore an soft-deleted item.
-     *
-     * @param $model
-     * @param $id
-     *
-     * @return URL Redirect
-     */
-    public function restore( $model, $id )
-    {
-        $model = ucfirst($model);
+		$item = $model::onlyTrashed()->findOrFail($id);
 
-        $item = $model::onlyTrashed()->findOrFail($id);
+		if (null != $item)
+		{
+			$item->restore();
+		}
 
-        if( null != $item )
-        {
-            $item->restore();
-        }
+		return Redirect::to(URL::previous());
+	}
 
-        return Redirect::to( URL::previous() );
-    }
+	/**
+	 * Deletes an item from it's table.
+	 *
+	 * @param $model
+	 * @param $id
+	 *
+	 * @return URL Redirect
+	 */
+	public function delete($model, $id)
+	{
+		$model = ucfirst($model);
 
+		if (strtoupper(Input::get('delete')) == 'DELETE')
+		{
+			$user = $model::findOrFail($id);
+			$user->delete();
+		}
 
-    /**
-     * Deletes an item from it's table.
-     *
-     * @param $model
-     * @param $id
-     *
-     * @return URL Redirect
-     */
-    public function delete( $model, $id )
-    {
-        $model = ucfirst($model);
-
-        if(strtoupper(Input::get('delete')) == 'DELETE')
-        {
-            $user = $model::findOrFail($id);
-            $user->delete();
-        }
-
-        return Redirect::to( URL::previous() );
-    }
+		return Redirect::to(URL::previous());
+	}
 }

@@ -6,12 +6,12 @@
  *
  */
 
-return array(
+return [
 
 	// What model should be used for the backend users
-	'model' 		=> 'Medic',
+	'model' => 'Medic',
 
 	// Whats the name of the table used for the Authentification
-	'table'			=> 'medics',
+	'table' => 'medics',
 
-);
+];

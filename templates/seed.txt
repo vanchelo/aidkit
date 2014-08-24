@@ -1,7 +1,7 @@
 <?php
 
-class MedicsTableSeeder extends Seeder {
-
+class MedicsTableSeeder extends Seeder
+{
 	/**
 	 * Run the database seeds.
 	 *
@@ -9,10 +9,14 @@ class MedicsTableSeeder extends Seeder {
 	 */
 	public function run()
 	{
-		$medic = array('username' => 'drhouse','password' => Hash::make('aidkit'),'name' => 'Dr. Gregory House','email' => 'drhouse@gmail.com','role'=>1,'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s'));
+		$medic = [
+			'username' => 'drhouse',
+			'password' => Hash::make('aidkit'),
+			'name'     => 'Dr. Gregory House',
+			'email'    => 'drhouse@gmail.com',
+			'role'     => 1,
+		];
 
 		DB::table('medics')->insert($medic);
-
 	}
-
 }

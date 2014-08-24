@@ -2,8 +2,8 @@
 
 use Illuminate\Support\ServiceProvider;
 
-class AidkitServiceProvider extends ServiceProvider {
-
+class AidkitServiceProvider extends ServiceProvider
+{
 	/**
 	 * Indicates if loading of the provider is deferred.
 	 *
@@ -20,7 +20,7 @@ class AidkitServiceProvider extends ServiceProvider {
 	{
 		$this->package('codebryo/aidkit');
 
-		include __DIR__.'/../../start/global.php';
+		include __DIR__ . '/../../start/global.php';
 	}
 
 	/**
@@ -30,13 +30,10 @@ class AidkitServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		
-        $this->registerInstallCommand();
-        $this->registerExtensionCommand();
-        $this->registerAidkitHelper();
-        
+		$this->registerInstallCommand();
+		$this->registerExtensionCommand();
+		$this->registerAidkitHelper();
 	}
-
 
 	/**
 	 * Register the aidkit:install Command.
@@ -45,12 +42,12 @@ class AidkitServiceProvider extends ServiceProvider {
 	 */
 	protected function registerInstallCommand()
 	{
-		$this->app['aidkit.install'] = $this->app->share(function($app)
-        {
-            return new Commands\InstallCommand();
-        });
+		$this->app['aidkit.install'] = $this->app->share(function ($app)
+		{
+			return new Commands\InstallCommand();
+		});
 
-        $this->commands('aidkit.install');
+		$this->commands('aidkit.install');
 	}
 
 	/**
@@ -60,12 +57,12 @@ class AidkitServiceProvider extends ServiceProvider {
 	 */
 	protected function registerExtensionCommand()
 	{
-		$this->app['aidkit.extension'] = $this->app->share(function($app)
-        {
-            return new Commands\ExtensionCommand();
-        });
+		$this->app['aidkit.extension'] = $this->app->share(function ($app)
+		{
+			return new Commands\ExtensionCommand();
+		});
 
-        $this->commands('aidkit.extension');
+		$this->commands('aidkit.extension');
 	}
 
 	/**
@@ -75,7 +72,7 @@ class AidkitServiceProvider extends ServiceProvider {
 	 */
 	protected function registerAidkitHelper()
 	{
-		$this->app['aidkit'] = $this->app->share(function($app)
+		$this->app['aidkit'] = $this->app->share(function ($app)
 		{
 			return new Aidkit();
 		});
@@ -90,5 +87,4 @@ class AidkitServiceProvider extends ServiceProvider {
 	{
 		return array('aidkit');
 	}
-
 }

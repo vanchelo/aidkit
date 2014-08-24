@@ -1,24 +1,25 @@
-<?php 
+<?php
 
 use Illuminate\Auth\UserInterface;
+use Illuminate\Auth\UserTrait;
 
-class Medic extends AidkitModel implements UserInterface {
+class Medic extends AidkitModel implements UserInterface
+{
+	use UserTrait;
 
 	/**
 	 * What columns should be fillable
 	 *
 	 * @var string
 	 */
-	protected $fillable = array('name','username','email');
+	protected $fillable = ['name', 'username', 'email'];
 
 	/**
 	 * What columns should be guarded
 	 *
 	 * @var string
 	 */
-	protected $guarded = array('role','password');
-
-
+	protected $guarded = ['role', 'password'];
 
 	/**
 	 * The table associated with the model.
@@ -53,12 +54,12 @@ class Medic extends AidkitModel implements UserInterface {
 	 *
 	 * @var array
 	 */
-	public static $rules = array(
-		'username' 	=> 'required|alpha_num|unique:medics,username,@id',
-		'name'		=> 'required',
-		'email'		=> 'required|email|unique:medics,email,@id',
-		'password'	=> 'required'
-	);
+	public static $rules = [
+		'username' => 'required|alpha_num|unique:medics,username,@id',
+		'name'     => 'required',
+		'email'    => 'required|email|unique:medics,email,@id',
+		'password' => 'required'
+	];
 
 	/**
 	 * Check if the current user has the correct accesslevel
@@ -69,10 +70,12 @@ class Medic extends AidkitModel implements UserInterface {
 	 */
 	public function hasAccessTo($role)
 	{
-		if($this->role <= $role)
+		if ($this->role <= $role)
+		{
 			return true;
-		else
-			return false;
+		}
+
+		return false;
 	}
 
 	/**
@@ -87,6 +90,17 @@ class Medic extends AidkitModel implements UserInterface {
 		$this->attributes['password'] = Hash::make($password);
 	}
 
+	/**
+	 * Add a role to the Modelattributes
+	 *
+	 * @param string $password
+	 *
+	 * @return void
+	 */
+	public function setRoleAttribute($role)
+	{
+		$this->attributes['role'] = (int) $role;
+	}
 
 	/**
 	 * Get the title for the role of the current user
@@ -109,27 +123,4 @@ class Medic extends AidkitModel implements UserInterface {
 	{
 		return $this->username;
 	}
-
-	/**
-	 * Get the unique identifier for the user.
-	 *
-	 * @return mixed
-	 */
-	public function getAuthIdentifier()
-	{
-		return $this->getKey();
-	}
-
-	/**
-	 * Get the password for the user.
-	 *
-	 * @return string
-	 */
-	public function getAuthPassword()
-	{
-		return $this->password;
-	}
-
-
-
 }

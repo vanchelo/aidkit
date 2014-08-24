@@ -1,21 +1,20 @@
-(function($){
-
+(function ($) {
 	init();
 
 	var BASE_URL = $('base').attr('href'),
 		TEMPLATE_URL = BASE_URL + '/js/';
 
-	var HTMLcover = $('<div>',{class: 'js-cover'}),
-		HTMLalert = $('<div>',{class: 'js-alert'});
+	var HTMLcover = $('<div>', {class: 'js-cover'}),
+		HTMLalert = $('<div>', {class: 'js-alert'});
 
 	/* EVENTS */
 
-	$(window).resize(function() {
+	$(window).resize(function () {
 		console.log('now');
-	  	fitContainers();
+		fitContainers();
 	});
 
-	$('body').delegate('a.js-remove','click',function(evt){
+	$('body').delegate('a.js-remove', 'click', function (evt) {
 		evt.preventDefault();
 		evt.stopPropagation();
 
@@ -26,34 +25,31 @@
 
 	});
 
-	$('body').delegate('.js-cover','click',function(evt){
+	$('body').delegate('.js-cover', 'click', function (evt) {
 		$('.js-cover, .js-alert').remove();
 		$('#wrapper').removeClass('blur');
 	});
 
-
-
 	/* FUNCTIONS */
 
-	function init(){
+	function init() {
 		fitContainers();
 	}
 
-	function fitContainers(){
+	function fitContainers() {
 		var $wrapper = $('#wrapper'),
 			$contentwrapper = $('#contentwrapper'),
 			$aside = $('aside'),
 			minHeight = $wrapper.height();
 
-		$contentwrapper.css('min-height',minHeight);
+		$contentwrapper.css('min-height', minHeight);
 		$aside.height(minHeight);
 	}
 
-	function includeHTMLcontent(name){
-
-		$.get(TEMPLATE_URL + name, function(data) {
+	function includeHTMLcontent(name) {
+		$.get(TEMPLATE_URL + name, function (data) {
 			$('body').append(HTMLalert);
-		  	$('.js-alert').html(data);
+			$('.js-alert').html(data);
 		});
 	}
 

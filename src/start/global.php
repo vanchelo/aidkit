@@ -13,21 +13,19 @@
  * ------------------------------------------------------
  */
 
-
 /*
  *
  * Aidkit provides a new Namespace for all the views that are stored in the /views_admin Folder
  * This will help you keep a clean sepearation of frontend and backend views.
  * This views may be called like so
  *
- * View::make('admin::dashboard'); 
+ * View::make('admin::dashboard');
  *
  * This will load the /app/views_admin/dashboard.blade.php File
- * 
+ *
  */
 
-View::addNamespace('aidkit', app_path().'/Aidkit/views');
-
+View::addNamespace('aidkit', app_path() . '/Aidkit/views');
 
 /*
  *
@@ -35,8 +33,7 @@ View::addNamespace('aidkit', app_path().'/Aidkit/views');
  *
  */
 
-View::share('title',Config::get('aidkit::config.title')); // $title will return the value provided in the configuration File
-
+View::share('title', Config::get('aidkit::config.title')); // $title will return the value provided in the configuration File
 
 /*
  * ------------------------------------------------------
@@ -47,17 +44,19 @@ View::share('title',Config::get('aidkit::config.title')); // $title will return 
 /*
  *
  * Aidkit also sperates your backend routes from the rest of the route files.
- * All available routes should be placed in routes_admin.php and are automaticaly prefixed 
+ * All available routes should be placed in routes_admin.php and are automaticaly prefixed
  * with the urlprefix Value stored in the configuration File
  */
 
-Route::group(array('prefix'=>Config::get('aidkit::config.urlprefix')),function(){
-
+Route::group(['prefix' => Config::get('aidkit::config.urlprefix')], function ()
+{
 	Config::set('auth.model', Config::get('aidkit::auth.model'));
-    Config::set('auth.table', Config::get('aidkit::auth.table'));
+	Config::set('auth.table', Config::get('aidkit::auth.table'));
 
-	if(File::exists(app_path().'/Aidkit/routes.php')) include app_path().'/Aidkit/routes.php';
-
+	if (File::exists(app_path() . '/Aidkit/routes.php'))
+	{
+		include app_path() . '/Aidkit/routes.php';
+	}
 });
 
 /*
@@ -66,9 +65,12 @@ Route::group(array('prefix'=>Config::get('aidkit::config.urlprefix')),function()
  *
  */
 
-Route::filter('aidkitauth', function()
+Route::filter('aidkitauth', function ()
 {
-	if (Auth::guest() || get_class(Auth::user()) != Config::get('aidkit::auth.model')) return Redirect::guest(Config::get('aidkit::config.urlprefix').'/login');
+	if (Auth::guest() || get_class(Auth::user()) != Config::get('aidkit::auth.model'))
+	{
+		return Redirect::guest(Config::get('aidkit::config.urlprefix') . '/login');
+	}
 });
 
 /*
@@ -77,7 +79,7 @@ Route::filter('aidkitauth', function()
  *
  */
 
-App::missing(function($exception)
+App::missing(function ($exception)
 {
 	return View::make('aidkit::errors/missing');
 });
@@ -88,13 +90,12 @@ App::missing(function($exception)
  *
  */
 
-Event::listen('aidkit.login', function($medic)
+Event::listen('aidkit.login', function ($medic)
 {
 	$medic->lockEvents = true;
 
-    $medic->last_login = $medic->freshTimestamp();
+	$medic->last_login = $medic->freshTimestamp();
 
-    $medic->save();
-
+	$medic->save();
 });
 

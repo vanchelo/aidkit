@@ -1,48 +1,50 @@
 <?php
 
-/*
+/**
  * All the Routes in this File are automatically prefixed by the value provided in the config file.
  * Default: admin
- *
  */
 
-/*
- *
+/**
  * Feel free to edit those predefined Routes to your needs if you like.
- *
  */
 
 // Basic Route redirects to the dashboard route
-Route::get('/',function(){ return Redirect::route('dashboard'); });
+Route::get('/', function ()
+	{
+		return Redirect::route('dashboard');
+	});
 
 // Handle GET & POST login calls
-Route::controller('login','AidkitAuthController');
+Route::controller('login', 'AidkitAuthController');
 
 // Logout
-Route::get('logout','AidkitAuthController@logout');
+Route::get('logout', 'AidkitAuthController@logout');
 
 // The Following Routes should be filtered
-Route::group(array('before'=>'aidkitauth'),function(){
+Route::group(['before' => 'aidkitauth'], function ()
+{
 
-	Route::get('dashboard',array('as'=>'dashboard','uses'=>'AidkitHomeController@showDashboard'));
+	Route::get('dashboard', ['as' => 'dashboard', 'uses' => 'AidkitHomeController@showDashboard']);
 
 	// Aidkit provides all necessary Files for User CRUD out of the box
 	// Users of Aidkit are called Medics by default
 	Route::resource('medics', 'AidkitMedicsController');
 
-
-    Route::get('restore/{model}/{id}','AidkitController@restore');
-    Route::get('delete/{model}/{id}','AidkitController@delete');
+	Route::get('restore/{model}/{id}', 'AidkitController@restore');
+	Route::get('delete/{model}/{id}', 'AidkitController@delete');
 
 	// Any Form Related routes should go in here
-	Route::group(array('before'=>'csrf'),function(){
+	Route::group(['before' => 'csrf'], function ()
+	{
 
 	});
 
 	// Some views can be loaded through ajax. They will be returned correctly by this route
 	// Example: It is used for creating the DELETE model window
-	Route::get('js/{template}',function($template){
-			return View::make('aidkit::js-views.'.$template);
+	Route::get('js/{template}', function ($template)
+	{
+		return View::make('aidkit::js-views.' . $template);
 	});
 
 });
