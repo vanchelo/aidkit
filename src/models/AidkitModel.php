@@ -1,8 +1,10 @@
 <?php
 
+use SoftDeletingTrait;
+
 class AidkitModel extends Eloquent
 {
-	use SoftDeletignTrait;
+	use SoftDeletingTrait;
 	/**
 	 *
 	 * Store Error Messages in here
