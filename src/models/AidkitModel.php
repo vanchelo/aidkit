@@ -1,7 +1,5 @@
 <?php
 
-use SoftDeletingTrait;
-
 class AidkitModel extends Eloquent
 {
 	use SoftDeletingTrait;
